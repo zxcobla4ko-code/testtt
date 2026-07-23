@@ -38,13 +38,27 @@ local function VerifyKey(key)
         HttpService:UrlEncode(Config.provider),
         HttpService:UrlEncode(Config.api)
     )
-    local ok, result = pcall(function()
-        return HttpService:GetAsync(url, true)
-    end)
-    if not ok then return false, "Connection error" end
+
+    local body = nil
+
+    -- Medium использует request()
+    local ok, res = pcall(request, {
+        Url    = url,
+        Method = "GET",
+        Headers = { ["User-Agent"] = "Mozilla/5.0" }
+    })
+
+    if ok and type(res) == "table" and res.Body then
+        body = res.Body
+    end
+
+    if not body or body == "" then
+        return false, "Connection error"
+    end
+
     local valid, msg = false, "Invalid key"
     pcall(function()
-        local d = HttpService:JSONDecode(result)
+        local d = HttpService:JSONDecode(body)
         if type(d) == "table" then
             valid = d.valid == true
             msg   = d.message or d.error or "Invalid key"
