@@ -1,2612 +1,364 @@
-local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/zxcobla4ko-code/secret.gui/refs/heads/main/secretgui'))();wait()
+-- TIDEX HUB KEY SYSTEM
+-- STANDALONE | Host on GitHub | jnkie API verify
 
-local Window = UILib.new("RenHub", game.Players.LocalPlayer.DisplayName, "oldWT")
-
-local InfoCat = Window:Category("Info", "http://www.roblox.com/asset/?id=12707252279")
-local CombatCat = Window:Category("OldWT", "http://www.roblox.com/asset/?id=11932591062")
-local FeaturesCat = Window:Category("Features", "http://www.roblox.com/asset/?id=12707252279")
-local SettingsCat = Window:Category("Settings", "http://www.roblox.com/asset/?id=11932591062")
-
-function defaultvalue()
-menuOpen = true; optimizationdelay = 0.02; watermarkenabled = true; cursorenabled = true; cursoranimation = true; cursoranimationspeed = 50; cursortransparency = 0; cursorrotation = 0; cursorcolor = Color3.fromRGB(255,255,255); customwatermarkcolor = Color3.fromRGB(160,160,160); customwatermarkshadowcolor = Color3.fromRGB(0,0,0); customwatermarkshadowtransparency = 0.5; backgroundgradientenabled = true; backgroundgradientanimation = false; backgroundgradientanimationspeed = 7; backgroundgradienttransparency = 0.5; backgroundgradientrotation = 0; backgroundgradientcolor1 = Color3.fromRGB(0,0,0); backgroundgradientcolor2 = Color3.fromRGB(255,255,255); screengirlenabled = true; screengirlside = true; screengirl = "Tomoko"; blurenabled = true; blursize = 24; customguicolor = Color3.fromRGB(160,160,160); customshadowcolor = Color3.fromRGB(0,0,0); customguidpi = 80; customshadowtransparency = 0.5; textsize = 0; autosaveconfig = false;
-end
-defaultvalue()
-
-local passes, fails = 0, 0
-
-local function test(name, callback)
-    task.spawn(function()
-        local success, message = pcall(callback)
-
-        if success then
-            passes += 1
-        else
-            fails += 1
-        end
-    end)
-end
-
-if isfolder and makefolder and delfolder then
-    if isfolder(".tests") then
-        delfolder(".tests")
-    end
-    makefolder(".tests")
-end
-
-test("readfile", function()
-    writefile(".tests/readfile.txt", "success")
-    assert(readfile(".tests/readfile.txt") == "success", "Did not return the contents of the file")
-end)
-
-test("makefolder", function()
-    makefolder(".tests/makefolder")
-    assert(isfolder(".tests/makefolder"), "Did not create the folder")
-end)
-
-test("writefile", function()
-    writefile(".tests/writefile.txt", "success")
-    assert(readfile(".tests/writefile.txt") == "success", "Did not write the file")
-end)
-
-test("appendfile", function()
-    writefile(".tests/appendfile.txt", "su")
-    appendfile(".tests/appendfile.txt", "cce")
-    appendfile(".tests/appendfile.txt", "ss")
-    assert(readfile(".tests/appendfile.txt") == "success", "Did not append the file")
-end)
-
-task.wait(1/2)
-
-local path = "RenHub/configs/" .. game.PlaceId .. ".RenHub"
-if fails == 0 then
-    local success, fileContent = pcall(function()
-        return readfile(path)
-    end)
-
-    if success and fileContent then
-        local loadedFunction, errorMessage = loadstring(fileContent, path)
-        if loadedFunction then
-            local execSuccess, execErr = pcall(loadedFunction)
-            if execSuccess then
-                Window:Notification({
-                    Title = "oldWT",
-                    Desc = "A config for this place has been found and loaded!",
-                    expire = 3
-                })
-            else
-                Window:Notification({
-                    Title = "oldWT",
-                    Desc = "Error while loading config! "..tostring(execErr),
-                    expire = 3
-                })
-            end
-        else
-            Window:Notification({
-                Title = "oldWT",
-                Desc = "Error while loading config! "..tostring(errorMessage),
-                expire = 3
-            })
-        end
-    else
-        Window:Notification({
-            Title = "oldWT",
-            Desc = "There's no config for this place!",
-            expire = 3
-        })
-    end
-else
-    Window:Notification({
-        Title = "oldWT",
-        Desc = "Your executor doesnt support config system!",
-        expire = 3
-    })
-end
-
-local IOSubButton = InfoCat:Button("Information", "http://www.roblox.com/asset/?id=12707252279")
-local IOSection1 = IOSubButton:Section("Script was made by synapse1337 and xavierpihta", "Left")
-IOSection1:Button({
-    Title = "GUI owner ds serv",
-    ButtonName = "Copy Link",
-    Description = "ui made by reyn7525",
-    }, function()
-    setclipboard("https://dsc.gg/renhub")
-    Window:Notification({
-        Title = "oldWT",
-        Desc = "Discord link Copied!",
-        expire = 3
-    })
-end)
-IOSection1:Button({
-    Title = "Our Discord link",
-    ButtonName = "Copy Link",
-    Description = "Our Discord Server",
-    }, function()
-    setclipboard("https://discord.gg/UcWvg83Ys")
-    Window:Notification({
-        Title = "oldWT",
-        Desc = "Discord link Copied!",
-        expire = 3
-    })
-end)
-local IOSection2 = IOSubButton:Section("Information:", "Left")
-local IOSection3 = IOSubButton:Section("Last Update Changelog:", "Right")
-UpdateInfo = [=[
-    [21.07.2026]
-        [+] - Пофикшен баг в библиотеке
-        [+] - Добавлен Прошлый мид
-        [+] - Добавлен Прошлый мид(Dark)
-
-    [19.07.2026]
-        [+] - Добавил функцию Morph Avatar во вкладку Features
-        [~] - Пофиксил баг с Hide UI
-        [~] - Переименовал Visuals в Features
-        [+] - Дота заглотил хуяку
-        [+] - Добавил AutoLoadout и Teleport во вкладку Features
-        [~] - Переименовал функцию оружия в OldWT на oldGUNS
-        [~] - Исправил баг с обрезкой описаний
-        [~] - Добавил Old Mids 23 года
-
-    [17.07.2026]
-        [+] - Old Mids перенесены в отдельную секцию
-        [-] - Убрал Teleport to Death и Auto Loadout из OldWT
-        [~] - Переименовал Player в oldbugs, Other в Settings
-        [~] - Info теперь первая вкладка, Settings последняя
-        [~] - Бинд открытия меню по дефолту теперь RightShift
-        [~] - Объединил No Spread и Old Snipers
-]=]
-
-local ORSubButton = SettingsCat:Button("Settings Functions", "http://www.roblox.com/asset/?id=11932591062")
-
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
-local TextButton = Instance.new("TextButton", ScreenGui)
-TextButton.BackgroundTransparency = 1
-TextButton.Size = UDim2.new(0, 0, 0, 0)
-TextButton.Text = " "
-
-local BackgroundScreenGui = Instance.new("ScreenGui", game.CoreGui)
-BackgroundScreenGui.Name = "BackgroundScreenGui"
-BackgroundScreenGui.Enabled = backgroundgradientenabled
-BackgroundScreenGui.DisplayOrder = -1
-local BackgroundLabel = Instance.new("TextLabel", BackgroundScreenGui)
-BackgroundLabel.Name = "BackgroundLabel"
-BackgroundLabel.Size = UDim2.new(1, 0, 1.1, 0)
-BackgroundLabel.Position = UDim2.new(0, 0, -0.1, 0)
-BackgroundLabel.Text = ""
-BackgroundLabel.BackgroundColor3 = Color3.new(1, 1, 1)
-BackgroundLabel.BackgroundTransparency = 0
-local BackgroundGradient = Instance.new("UIGradient", BackgroundLabel)
-BackgroundGradient.Name = "BackgroundGradient"
-BackgroundGradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
-    ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1))
-})
-BackgroundGradient.Rotation = 0
-
-local GirlScreenGui = Instance.new("ScreenGui", game.CoreGui)
-GirlScreenGui.Name = "GirlScreenGui"
-GirlScreenGui.Enabled = screengirlenabled
-GirlScreenGui.DisplayOrder = 0
-local GirlImageLabel = Instance.new("ImageLabel",GirlScreenGui)
-GirlImageLabel.Name = "GirlImageLabel"
-GirlImageLabel.BackgroundTransparency = 1
-GirlImageLabel.Image = "rbxassetid://13391747821"
-GirlImageLabel.Position = UDim2.new(0.775,0,0,0)
-GirlImageLabel.Size = UDim2.new(0.225,0,1,0)
-GirlImageLabel.ZIndex = 0
-
-local Blur = Instance.new("BlurEffect",game.Lighting)
-Blur.Name = "RenHubBlur"
-Blur.Enabled = blurenabled
-
-local CursorGui = Instance.new("ScreenGui", game.CoreGui)
-CursorGui.Name = "CursorGui"
-CursorGui.Enabled = false
-CursorGui.DisplayOrder = 2
-local CursorImage = Instance.new("ImageLabel", CursorGui)
-CursorImage.BackgroundTransparency = 1
-CursorImage.Image = "rbxassetid://13391747821"
-CursorImage.Size = UDim2.new(0,30,0,30)
-
-local RenHubWatermark = Instance.new("ScreenGui")
-local RenHubWatermarkWindow = Instance.new("Frame")
-local MainUI = Instance.new("Frame")
-local UICorner = Instance.new("UICorner")
-local ContentHolder = Instance.new("Frame")
-local UIListLayout = Instance.new("UIListLayout")
-local UICorner_2 = Instance.new("UICorner")
-local _4Line = Instance.new("Frame")
-local _5TextFPS = Instance.new("TextLabel")
-local _6Line = Instance.new("Frame")
-local _8Line = Instance.new("Frame")
-local _7TextPing = Instance.new("TextLabel")
-local _9TextTime = Instance.new("TextLabel")
-local _1Logo = Instance.new("TextLabel")
-local UIGradient = Instance.new("UIGradient")
-local _2Line = Instance.new("Frame")
-local _3TextName = Instance.new("TextLabel")
-local DropShadowHolder = Instance.new("Frame")
-local DropShadow = Instance.new("ImageLabel")
-local ContentFolder = Instance.new("Folder")
-
-RenHubWatermark.Name = "RenHubWatermark"
-RenHubWatermark.Parent = game.CoreGui
-RenHubWatermark.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-RenHubWatermark.Enabled = watermarkenabled
-RenHubWatermark.DisplayOrder = 1
-
-RenHubWatermarkWindow.Name = "RenHubWatermarkWindow"
-RenHubWatermarkWindow.Parent = RenHubWatermark
-RenHubWatermarkWindow.Active = true
-RenHubWatermarkWindow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-RenHubWatermarkWindow.BackgroundTransparency = 1.000
-RenHubWatermarkWindow.BorderColor3 = Color3.fromRGB(255, 255, 255)
-RenHubWatermarkWindow.Draggable = true
-RenHubWatermarkWindow.Position = UDim2.new(0.75, 0, 0, 0)
-RenHubWatermarkWindow.Selectable = true
-RenHubWatermarkWindow.Size = UDim2.new(0, 365, 0, 22)
-
-MainUI.Name = "MainUI"
-MainUI.Parent = RenHubWatermarkWindow
-MainUI.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
-MainUI.BorderColor3 = Color3.fromRGB(255, 255, 255)
-MainUI.BorderSizePixel = 0
-MainUI.Size = UDim2.new(1, 0, 1, 0)
-
-UICorner.CornerRadius = UDim.new(0.349999994, 0)
-UICorner.Parent = MainUI
-
-ContentHolder.Name = "ContentHolder"
-ContentHolder.Parent = MainUI
-ContentHolder.BackgroundColor3 = Color3.fromRGB(27, 27, 27)
-ContentHolder.BorderColor3 = Color3.fromRGB(27, 27, 27)
-ContentHolder.BorderSizePixel = 0
-ContentHolder.Size = UDim2.new(1, 0, 1, 0)
-
-UIListLayout.Parent = ContentHolder
-UIListLayout.FillDirection = Enum.FillDirection.Horizontal
-UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-UIListLayout.Padding = UDim.new(0, 5)
-
-UICorner_2.CornerRadius = UDim.new(0.349999994, 0)
-UICorner_2.Parent = ContentHolder
-
-_4Line.Name = "4Line"
-_4Line.Parent = ContentHolder
-_4Line.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
-_4Line.BorderSizePixel = 0
-_4Line.Size = UDim2.new(0, 1, 0.6, 0)
-
-_5TextFPS.Name = "5TextFPS"
-_5TextFPS.Parent = ContentHolder
-_5TextFPS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-_5TextFPS.BackgroundTransparency = 1.000
-_5TextFPS.BorderColor3 = Color3.fromRGB(0, 0, 0)
-_5TextFPS.BorderSizePixel = 0
-_5TextFPS.Position = UDim2.new(0.376696825, 0, 0, 0)
-_5TextFPS.Size = UDim2.new(0, 63, 0, 22)
-_5TextFPS.Font = Enum.Font.Gotham
-_5TextFPS.Text = "FPS: 0"
-_5TextFPS.TextColor3 = Color3.fromRGB(160, 160, 160)
-_5TextFPS.TextSize = 14.000
-_5TextFPS.TextWrapped = true
-
-_6Line.Name = "6Line"
-_6Line.Parent = ContentHolder
-_6Line.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
-_6Line.BorderSizePixel = 0
-_6Line.Size = UDim2.new(0, 1, 0.6, 0)
-
-_8Line.Name = "8Line"
-_8Line.Parent = ContentHolder
-_8Line.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
-_8Line.BorderSizePixel = 0
-_8Line.Size = UDim2.new(0, 1, 0.6, 0)
-
-_7TextPing.Name = "7TextPing"
-_7TextPing.Parent = ContentHolder
-_7TextPing.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-_7TextPing.BackgroundTransparency = 1.000
-_7TextPing.BorderColor3 = Color3.fromRGB(0, 0, 0)
-_7TextPing.BorderSizePixel = 0
-_7TextPing.Position = UDim2.new(0.564846396, 0, 0, 0)
-_7TextPing.Size = UDim2.new(0, 76, 0, 22)
-_7TextPing.Font = Enum.Font.Gotham
-_7TextPing.Text = "PING: 133.7"
-_7TextPing.TextColor3 = Color3.fromRGB(160, 160, 160)
-_7TextPing.TextSize = 14.000
-_7TextPing.TextWrapped = true
-
-_9TextTime.Name = "9TextTime"
-_9TextTime.Parent = ContentHolder
-_9TextTime.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-_9TextTime.BackgroundTransparency = 1.000
-_9TextTime.BorderColor3 = Color3.fromRGB(0, 0, 0)
-_9TextTime.BorderSizePixel = 0
-_9TextTime.Position = UDim2.new(0.846832573, 0, 0, 0)
-_9TextTime.Size = UDim2.new(0, 54, 0, 22)
-_9TextTime.Font = Enum.Font.Gotham
-_9TextTime.Text = "2:28:00"
-_9TextTime.TextColor3 = Color3.fromRGB(160, 160, 160)
-_9TextTime.TextSize = 14.000
-_9TextTime.TextWrapped = true
-
-_1Logo.Name = "1Logo"
-_1Logo.Parent = ContentHolder
-_1Logo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-_1Logo.BackgroundTransparency = 1.000
-_1Logo.BorderColor3 = Color3.fromRGB(0, 0, 0)
-_1Logo.BorderSizePixel = 0
-_1Logo.Size = UDim2.new(0, 55, 0, 13)
-_1Logo.Font = Enum.Font.GothamBold
-_1Logo.Text = "W"
-_1Logo.TextColor3 = Color3.fromRGB(160, 160, 160)
-_1Logo.TextSize = 20.000
-_1Logo.TextWrapped = true
-
-UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 255, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(163, 163, 163))}
-UIGradient.Rotation = 45
-UIGradient.Parent = _1Logo
-
-_2Line.Name = "2Line"
-_2Line.Parent = ContentHolder
-_2Line.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
-_2Line.BorderSizePixel = 0
-_2Line.Size = UDim2.new(0, 1, 0.6, 0)
-
-_3TextName.Name = "3TextName"
-_3TextName.Parent = ContentHolder
-_3TextName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-_3TextName.BackgroundTransparency = 1.000
-_3TextName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-_3TextName.BorderSizePixel = 0
-_3TextName.Position = UDim2.new(0.750491202, 0, 0, 0)
-_3TextName.Size = UDim2.new(0, 95, 0, 6)
-_3TextName.Font = Enum.Font.Gotham
-_3TextName.Text = "155rbdasnbf14"
-_3TextName.TextColor3 = Color3.fromRGB(160, 160, 160)
-_3TextName.TextSize = 14.000
-_3TextName.TextWrapped = true
-
-DropShadowHolder.Name = "DropShadowHolder"
-DropShadowHolder.Parent = MainUI
-DropShadowHolder.BackgroundTransparency = 1.000
-DropShadowHolder.BorderSizePixel = 0
-DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
-DropShadowHolder.ZIndex = 0
-
-DropShadow.Name = "DropShadow"
-DropShadow.Parent = DropShadowHolder
-DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-DropShadow.BackgroundTransparency = 1.000
-DropShadow.BorderSizePixel = 0
-DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-DropShadow.Size = UDim2.new(1, 18, 1, 18)
-DropShadow.Image = "rbxassetid://6015897843"
-DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-DropShadow.ImageTransparency = 0.500
-DropShadow.ScaleType = Enum.ScaleType.Slice
-DropShadow.SliceCenter = Rect.new(37, 37, 450, 450)
-
-ContentFolder.Name = "ContentFolder"
-ContentFolder.Parent = MainUI
-
-local RenHubWatermarkCrossLines = Instance.new("ScreenGui")
-local CrossLines = Instance.new("Frame")
-local XLine = Instance.new("Frame")
-local YLine = Instance.new("Frame")
-
-RenHubWatermarkCrossLines.Name = "RenHubWatermarkCrossLines"
-RenHubWatermarkCrossLines.Parent = game.CoreGui
-RenHubWatermarkCrossLines.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-RenHubWatermarkCrossLines.DisplayOrder = 0
-
-CrossLines.Name = "CrossLines"
-CrossLines.Parent = RenHubWatermarkCrossLines
-CrossLines.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-CrossLines.BackgroundTransparency = 1.000
-CrossLines.BorderColor3 = Color3.fromRGB(0, 0, 0)
-CrossLines.BorderSizePixel = 0
-CrossLines.Position = UDim2.new(0,0, -0.100000001, 0)
-CrossLines.Size = UDim2.new(1, 0, 1.10000002, 0)
-
-XLine.Name = "XLine"
-XLine.Parent = CrossLines
-XLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-XLine.BackgroundTransparency = 1.000
-XLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
-XLine.BorderSizePixel = 0
-XLine.Position = UDim2.new(0, 0, 0.5, 0)
-XLine.Size = UDim2.new(1, 0,0, 2)
-
-YLine.Name = "YLine"
-YLine.Parent = CrossLines
-YLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-YLine.BackgroundTransparency = 1.000
-YLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
-YLine.BorderSizePixel = 0
-YLine.Position = UDim2.new(0.5, 0, -0.100000001, 0)
-YLine.Size = UDim2.new(0, 2, 1.10000002, 0)
-
-RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["3TextName"].Text = game.Players.LocalPlayer.Name
-
-RenHubWatermark.RenHubWatermarkWindow.Draggable = true
-RenHubWatermark.RenHubWatermarkWindow.Selectable = true
-RenHubWatermark.RenHubWatermarkWindow.Active = true
-
-local ORSection1 = ORSubButton:Section("Customize GUI", "Left")
-ORSection1:Keybind({
-    Title = "Open Menu",
-    Description = "Keybind Open/Close GUI",
-    Default = Enum.KeyCode.RightShift,
-    }, function(value)
-    if not gameProcessedEvent then
-        menuOpen = not menuOpen
-        game.CoreGui.RenHubGUI.Window.MainUI.Visible = menuOpen
-        if blurenabled == true then
-            Blur.Enabled = not Blur.Enabled
-        end
-        if screengirlenabled == true then
-            GirlScreenGui.Enabled = not GirlScreenGui.Enabled
-        end
-        if backgroundgradientenabled == true then
-            BackgroundScreenGui.Enabled = not BackgroundScreenGui.Enabled
-        end
-    end
-end)
-if type(customguicolor) == "string" then
-    r,g,b = customguicolor:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = customguicolor.r,customguicolor.g,customguicolor.b
-end
-ORSection1:ColorPicker({
-    Title = "GUI Color",
-    Description = "Change your GUI Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    customguicolor = (value)
-end)
-if type(customshadowcolor) == "string" then
-    r,g,b = customshadowcolor:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = customshadowcolor.r,customshadowcolor.g,customshadowcolor.b
-end
-ORSection1:ColorPicker({
-    Title = "Shadow Color",
-    Description = "Change your Shadow Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    customshadowcolor = (value)
-end)
-ORSection1:Slider({
-    Title = "Brightness",
-    Description = "Changes the Shadow",
-    Default = customshadowtransparency*100,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    customshadowtransparency = value/100
-end)
-ORSection1:Slider({
-    Title = "Optimization",
-    Description = "Optimization Level",
-    Default = optimizationdelay*100,
-    Min = 0,
-    Max = 15
-    }, function(value)
-    optimizationdelay = value/100
-end)
-ORSection1:Slider({
-    Title = "DPI Scale",
-    Description = "Changes the GUI Size",
-    Default = customguidpi,
-    Min = 50,
-    Max = 200
-    }, function(value)
-    customguidpi = value
-end)
-ORSection1:Button({
-    Title = "Applying",
-    ButtonName = "Apply",
-    Description = "Apply New GUI Settings",
-    }, function()
-    game.CoreGui.RenHubGUI.Window.MainUI.Size = UDim2.new(0, 8.51*customguidpi, 0, 4.88*customguidpi)
-    RenHubWatermarkWindow.Size = UDim2.new(0, 4.56*customguidpi, 0, 0.27*customguidpi)
-    for _,element in pairs(game.CoreGui.RenHubGUI.Window:GetDescendants()) do
-        if element.ClassName == "TextLabel" or element.ClassName == "TextBox" then
-            if not element:FindFirstChild("OriginalTextSize") then
-                local OriginalTextSize = Instance.new("StringValue")
-                OriginalTextSize.Name = "OriginalTextSize"
-                OriginalTextSize.Value = element.TextSize
-                OriginalTextSize.Parent = element
-                element.TextSize = element.OriginalTextSize.Value/100*customguidpi
-            else
-                element.TextSize = element.OriginalTextSize.Value/100*customguidpi
-            end
-        end
-        if element.ClassName == "Frame" and element.Name == "CheatBase" and element.Parent.Name == "Content" then
-            element.Size = UDim2.new(1,0,0,0.30*customguidpi)
-        end
-    end
-    for _,element in pairs(RenHubWatermarkWindow:GetDescendants()) do
-        if element.ClassName == "TextLabel" then
-            if element.Name ~= "1Logo" then
-                element.TextSize = math.floor(0.175*customguidpi)
-            else
-                element.TextSize = math.floor(0.25*customguidpi)
-            end
-        end
-        if element.Name == "DropShadow" and element.ClassName == "ImageLabel" then
-            element.Size = UDim2.new(1,0.22*customguidpi,1,0.22*customguidpi)
-        end
-    end
-end)
-ORSection1:Button({
-    Title = "Remove GUI",
-    ButtonName = "Destroy",
-    Description = "Delete this GUI",
-    }, function()
-    game.CoreGui.RenHubGUI:Remove()
-    Blur:Remove()
-    ScreenGui:Remove()
-    TextButton:Remove()
-    GirlScreenGui:Remove()
-    BackgroundScreenGui:Remove()
-    RenHubWatermark:Remove()
-    RenHubWatermarkCrossLines:Remove()
-    FOVCircle:Remove()
-    CursorImage:Destroy()
-    CursorGui:Destroy()
-end)
-local ORSection2 = ORSubButton:Section("Watermark", "Left")
-ORSection2:Toggle({
-    Title = "Enable",
-    Description = "Adds a watermark",
-    Default = watermarkenabled
-    }, function(value)
-    watermarkenabled = (value)
-    RenHubWatermark.Enabled = (value)
-    RenHubWatermarkCrossLines.Enabled = (value)
-end)
-if type(customwatermarkcolor) == "string" then
-    r,g,b = customwatermarkcolor:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = customwatermarkcolor.r,customwatermarkcolor.g,customwatermarkcolor.b
-end
-ORSection2:ColorPicker({
-    Title = "GUI Color",
-    Description = "Change your GUI Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    customwatermarkcolor = (value)
-end)
-if type(customwatermarkshadowcolor) == "string" then
-    r,g,b = customwatermarkshadowcolor:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = customwatermarkshadowcolor.r,customwatermarkshadowcolor.g,customwatermarkshadowcolor.b
-end
-ORSection2:ColorPicker({
-    Title = "Shadow Color",
-    Description = "Change your Shadow Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    customwatermarkshadowcolor = (value)
-end)
-ORSection2:Slider({
-    Title = "Brightness",
-    Description = "Changes the Shadow",
-    Default = customwatermarkshadowtransparency*100,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    customwatermarkshadowtransparency = value/100
-end)
-ORSection2:Dropdown({
-    Title = "Elements",
-    Description = "Choose one of them",
-    Options = {
-        ["Solid Style"] = true, 
-        ["Logo"] = true,
-        ["Name"] = true,
-        ["FPS"] = true,
-        ["Ping"] = true,
-        ["Time"] = true
-    },
-    Multi = true,
-    Default = "None",
-}, function(value)
-    if value["Solid Style"] then
-        if value["Logo"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("1Logo") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["1Logo"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["1Logo"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("1Logo") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["1Logo"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["1Logo"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Name"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("3TextName") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["3TextName"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["3TextName"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("3TextName") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["3TextName"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["3TextName"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["FPS"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("5TextFPS") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["5TextFPS"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["5TextFPS"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("5TextFPS") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["5TextFPS"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["5TextFPS"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Ping"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("7TextPing") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["7TextPing"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["7TextPing"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("7TextPing") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["7TextPing"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["7TextPing"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Time"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("9TextTime") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["9TextTime"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["9TextTime"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("9TextTime") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["9TextTime"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["9TextTime"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        for lines = 2,8 do
-            if lines % 2 == 0 then
-                if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild(lines.."Line") then
-                    RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder[lines.."Line"].Visible = false
-                    RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder[lines.."Line"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-                end
-            end
-        end
-        local visibleElements = {}
-        for _, child in pairs(RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:GetChildren()) do
-            local number = child.Name:match("^(%d+)")
-            if number and child.Visible then
-                table.insert(visibleElements, {
-                    number = tonumber(number),
-                    instance = child
-                })
-            end
-        end
-        table.sort(visibleElements, function(a, b) return a.number < b.number end)
-        for i = 1, #visibleElements - 1 do
-            local current = visibleElements[i]
-            local next = visibleElements[i + 1]
-            if current.number % 2 == 1 and next.number % 2 == 1 then
-                local lineNumber = current.number + 1
-                local lineName = lineNumber .. "Line"
-                if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild(lineName) then
-                    local line = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder[lineName]
-                    line.Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-                    line.Visible = true
-                end
-            end
-        end
-    else
-        if value["Logo"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("1Logo") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["1Logo"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["1Logo"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("1Logo") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["1Logo"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["1Logo"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Name"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("3TextName") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["3TextName"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["3TextName"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("3TextName") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["3TextName"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["3TextName"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["FPS"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("5TextFPS") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["5TextFPS"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["5TextFPS"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("5TextFPS") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["5TextFPS"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["5TextFPS"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Ping"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("7TextPing") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["7TextPing"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["7TextPing"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("7TextPing") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["7TextPing"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["7TextPing"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        if value["Time"] == true then
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder:FindFirstChild("9TextTime") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["9TextTime"].Visible = true
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder["9TextTime"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder
-            end
-        else
-            if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("9TextTime") then
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["9TextTime"].Visible = false
-                RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder["9TextTime"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-            end
-        end
-        for lines = 2,8 do
-            if lines % 2 == 0 then
-                if RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild(lines.."Line") then
-                    RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder[lines.."Line"].Visible = false
-                    RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder[lines.."Line"].Parent = RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentFolder
-                end
-            end
-        end
-    end
-end)
-local ORSection3 = ORSubButton:Section("Free Mouse", "Left")
-ORSection3:Keybind({
-    Title = "Free Mouse",
-    Description = "Keybind Free Mouse in First Person",
-    Default = Enum.KeyCode.Home,
-    }, function(value)
-    if IsTyping then 
-        return
-    else
-        TextButton.Modal = not TextButton.Modal
-        game:GetService("UserInputService").MouseIconEnabled = not (TextButton.Modal and cursorenabled)
-        if cursorenabled == true then
-            CursorGui.Enabled = TextButton.Modal
-        else
-            CursorGui.Enabled = false
-        end
-        Window:Notification({
-            Title = "oldWT",
-            Desc = "Free Mouse now " .. (TextButton.Modal and "enabled" or "disabled").." !",
-            expire = 3
-        })
-        task.wait()
-    end
-end)
-ORSection3:Toggle({
-    Title = "Cursor",
-    Description = "Adds a Cursor if Free Mouse",
-    Default = cursorenabled
-    }, function(value)
-    cursorenabled = (value)
-end)
-if type(cursorcolor) == "string" then
-    r,g,b = cursorcolor:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = cursorcolor.r,cursorcolor.g,cursorcolor.b
-end
-ORSection3:ColorPicker({
-    Title = "Color",
-    Description = "Change Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    cursorcolor = (value)
-    CursorImage.ImageColor3 = cursorcolor
-end)
-ORSection3:Slider({
-    Title = "Rotation",
-    Description = "Changes the Rotation",
-    Default = cursorrotation,
-    Min = 0,
-    Max = 360
-    }, function(value)
-    cursorrotation = tonumber(math.floor(value))
-end)
-ORSection3:Slider({
-    Title = "Transparency",
-    Description = "Changes the Transparency",
-    Default = cursortransparency*100,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    cursortransparency = tonumber(math.floor(value)/100)
-    CursorImage.ImageTransparency = cursortransparency
-end)
-ORSection3:Toggle({
-    Title = "Animation",
-    Description = "Adds animation on Rotation",
-    Default = cursoranimation
-    }, function(value)
-    cursoranimation = (value)
-end)
-ORSection3:Slider({
-    Title = "Animation Speed",
-    Description = "Changes the Animation",
-    Default = cursoranimationspeed,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    cursoranimationspeed = tonumber(math.floor(value))
-end)
-
-local ORSection4 = ORSubButton:Section("Background Gradient", "Right")
-ORSection4:Toggle({
-    Title = "Enable",
-    Description = "Adds a gradient if GUI open",
-    Default = backgroundgradientenabled
-    }, function(value)
-    backgroundgradientenabled = (value)
-    BackgroundScreenGui.Enabled = (value)
-end)
-if type(backgroundgradientcolor1) == "string" then
-    r,g,b = backgroundgradientcolor1:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = backgroundgradientcolor1.r,backgroundgradientcolor1.g,backgroundgradientcolor1.b
-end
-ORSection4:ColorPicker({
-    Title = "Color №1",
-    Description = "Change First Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    backgroundgradientcolor1 = (value)
-    BackgroundGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, backgroundgradientcolor1),
-        ColorSequenceKeypoint.new(1, backgroundgradientcolor2)
-    })
-end)
-if type(backgroundgradientcolor2) == "string" then
-    r,g,b = backgroundgradientcolor2:match("([^,]+),([^,]+),([^,]+)")
-else
-    r,g,b = backgroundgradientcolor2.r,backgroundgradientcolor2.g,backgroundgradientcolor2.b
-end
-ORSection4:ColorPicker({
-    Title = "Color №2",
-    Description = "Change Second Color",
-    Default = Color3.new(tonumber(r), tonumber(g), tonumber(b)),
-    }, function(value)
-    backgroundgradientcolor2 = (value)
-    BackgroundGradient.Color = ColorSequence.new({
-        ColorSequenceKeypoint.new(0, backgroundgradientcolor1),
-        ColorSequenceKeypoint.new(1, backgroundgradientcolor2)
-    })
-end)
-ORSection4:Slider({
-    Title = "Rotation",
-    Description = "Changes the Rotation",
-    Default = backgroundgradientrotation,
-    Min = 0,
-    Max = 360
-    }, function(value)
-    backgroundgradientrotation = tonumber(math.floor(value))
-end)
-ORSection4:Slider({
-    Title = "Transparency",
-    Description = "Changes the Transparency",
-    Default = backgroundgradienttransparency*100,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    backgroundgradienttransparency = tonumber(math.floor(value)/100)
-    BackgroundLabel.BackgroundTransparency = backgroundgradienttransparency
-end)
-ORSection4:Toggle({
-    Title = "Animation",
-    Description = "Adds animation on Rotation",
-    Default = backgroundgradientanimation
-    }, function(value)
-    backgroundgradientanimation = (value)
-end)
-ORSection4:Slider({
-    Title = "Animation Speed",
-    Description = "Changes the Animation",
-    Default = backgroundgradientanimationspeed,
-    Min = 0,
-    Max = 100
-    }, function(value)
-    backgroundgradientanimationspeed = tonumber(math.floor(value))
-end)
-local ORSection5 = ORSubButton:Section("Screen Girl", "Right")
-ORSection5:Toggle({
-    Title = "Enable",
-    Description = "Adds a girl if GUI open",
-    Default = screengirlenabled
-    }, function(value)
-    screengirlenabled = (value)
-    GirlScreenGui.Enabled = (value)
-end)
-ORSection5:Toggle({
-    Title = "Girl Side",
-    Description = "Left/Right",
-    Default = screengirlside
-    }, function(value)
-    screengirlside = (value)
-    if screengirl == "Aqua" then
-        GirlImageLabel.Image = "rbxassetid://2788600997"
-        GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.767,0,0.036,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0.036,0)
-        end
-    elseif screengirl == "Darkness" then
-        GirlImageLabel.Image = "rbxassetid://2788599436"
-        GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.767,0,0.039,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0.039,0)
-        end
-    elseif screengirl == "Masaki" then
-        GirlImageLabel.Image = "rbxassetid://14665179030"
-        GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Megumin" then
-        GirlImageLabel.Image = "rbxassetid://7058931760"
-        GirlImageLabel.Size = UDim2.new(0.4,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.6,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Najimi" then
-        GirlImageLabel.Image = "rbxassetid://13641471753"
-        GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Reisen" then
-        GirlImageLabel.Image = "rbxassetid://16306637553"
-        GirlImageLabel.Size = UDim2.new(0.38,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.62,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Ritsuka" then
-        GirlImageLabel.Image = "rbxassetid://15169446403"
-        GirlImageLabel.Size = UDim2.new(0.26,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.74,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Seija" then
-        GirlImageLabel.Image = "rbxassetid://11783500101"
-        GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    elseif screengirl == "Tomoko" then
-        GirlImageLabel.Image = "rbxassetid://14665254386"
-        GirlImageLabel.Size = UDim2.new(0.26,0,1,0)
-        if screengirlside == true then
-            GirlImageLabel.Position = UDim2.new(0.74,0,0,0)
-        else
-            GirlImageLabel.Position = UDim2.new(0,0,0,0)
-        end
-    end
-end)
-ORSection5:Dropdown({
-    Title = "Girl Type",
-    Description = "Choose one of them",
-    Options = {
-        ["Aqua"] = false, 
-        ["Darkness"] = false, 
-        ["Masaki"] = false,
-        ["Megumin"] = false, 
-        ["Najimi"] = false,
-        ["Reisen"] = false,
-        ["Ritsuka"] = false,
-        ["Seija"] = false,
-        ["Tomoko"] = false
-    },
-    Multi = false,
-    Default = screengirl,
-}, function(value)
-    for Type, isSelected in pairs(value) do
-        if isSelected then
-            screengirl = Type
-            if screengirl == "Aqua" then
-                GirlImageLabel.Image = "rbxassetid://2788600997"
-                GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.767,0,0.036,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0.036,0)
-                end
-            elseif screengirl == "Darkness" then
-                GirlImageLabel.Image = "rbxassetid://2788599436"
-                GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.767,0,0.039,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0.039,0)
-                end
-            elseif screengirl == "Masaki" then
-                GirlImageLabel.Image = "rbxassetid://14665179030"
-                GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Megumin" then
-                GirlImageLabel.Image = "rbxassetid://7058931760"
-                GirlImageLabel.Size = UDim2.new(0.4,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.6,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Najimi" then
-                GirlImageLabel.Image = "rbxassetid://13641471753"
-                GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Reisen" then
-                GirlImageLabel.Image = "rbxassetid://16306637553"
-                GirlImageLabel.Size = UDim2.new(0.38,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.62,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Ritsuka" then
-                GirlImageLabel.Image = "rbxassetid://15169446403"
-                GirlImageLabel.Size = UDim2.new(0.26,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.74,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Seija" then
-                GirlImageLabel.Image = "rbxassetid://11783500101"
-                GirlImageLabel.Size = UDim2.new(0.233,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.767,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            elseif screengirl == "Tomoko" then
-                GirlImageLabel.Image = "rbxassetid://14665254386"
-                GirlImageLabel.Size = UDim2.new(0.26,0,1,0)
-                if screengirlside == true then
-                    GirlImageLabel.Position = UDim2.new(0.74,0,0,0)
-                else
-                    GirlImageLabel.Position = UDim2.new(0,0,0,0)
-                end
-            end
-            break
-        end
-    end
-end)
-local ORSection6 = ORSubButton:Section("Blur Effect", "Right")
-ORSection6:Toggle({
-    Title = "Enable",
-    Description = "Blurs everything if GUI open",
-    Default = blurenabled
-    }, function(value)
-    blurenabled = (value)
-    Blur.Enabled = (value)
-end)
-ORSection6:Slider({
-    Title = "Size",
-    Description = "Changes the Blur Size",
-    Default = blursize,
-    Min = 0,
-    Max = 50
-    }, function(value)
-    blursize = tonumber(math.floor(value))
-    Blur.Size = blursize
-end)
-
-local CombatSubButton = CombatCat:Button("OldWT Functions", "http://www.roblox.com/asset/?id=11932591062")
-
-local TweenService = game:GetService("TweenService")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local RunService = game:GetService("RunService")
+local HttpService      = game:GetService("HttpService")
+local TweenService     = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
-local replicatedStorage = game:GetService("ReplicatedStorage")
+local Players          = game:GetService("Players")
+local LocalPlayer      = Players.LocalPlayer
+local RunService       = game:GetService("RunService")
 
-
-
-local MIN_SPEED = 16
-local oldGunsActive = false
-local noSpreadConnections = {}
-local healScriptConnections = nil
-local acceleratedWeapons = {}
-
-local sniperNames = {
-    "AWP", "Awp", "AWP Sniper", "Barrett", "M82", "Barrett M82", "Barret",
-    "Explosive", "ExplosiveSniper", "Explosive Sniper", "Kar98", "Kar98K", "Kar",
-    "M40", "M40Sniper", "M40 Sniper", "M40_Sniper", "Remington", "MSR", 
-    "RemingtonMSR", "Remington MSR", "M200", "Intervention", "M200Intervention", 
-    "M200 Intervention", "M1903", "Springfield", "M1903Springfield", "M1903 Springfield"
+local Config = {
+    api         = "f3559cc2-bf87-42a2-885a-139633d6ce10",
+    service     = "oldwt-tidexhub",
+    provider    = "oldwt",
+    keyLink     = "https://jnkie.com/flow/b3ec74ca-3d15-4c75-8e33-6dbcca778acd",
+    keyFileName = "TidexHubKey.txt",
+    scriptUrl   = "loadstring(game:HttpGet("https://raw.githubusercontent.com/zxcobla4ko-code/test/refs/heads/main/test"))()",
 }
 
-local function processWeapon(weapon)
-    if not (weapon and weapon:IsA("Tool")) then return end
+local guiAlive = true
+
+local function SaveKey(key)
+    pcall(function() writefile(Config.keyFileName, key) end)
+end
+local function LoadKey()
+    local key = ""
     pcall(function()
-        weapon:SetAttribute("Spread", 0)
-        weapon:SetAttribute("SpreadMult", 0)
-        weapon:SetAttribute("MaxSpread", 0)
-        weapon:SetAttribute("MinSpread", 0)
-        weapon:SetAttribute("SpreadInc", 0)
-        weapon:SetAttribute("SpreadDec", 0)
-    end)
-
-    for _, ms in ipairs(weapon:GetDescendants()) do
-        if ms:IsA("ModuleScript") then
-            local success, module = pcall(require, ms)
-            if success and type(module) == "table" then
-                if module.Spread then module.Spread = 0 end
-                if module.SpreadMult then module.SpreadMult = 0 end
-                if module.MaxSpread then module.MaxSpread = 0 end
-                if module.MinSpread then module.MinSpread = 0 end
-                if module.SpreadInc then module.SpreadInc = 0 end
-                if module.SpreadDec then module.SpreadDec = 0 end
-                if module.HipfireSpreadMuitpler then module.HipfireSpreadMuitpler = 0 end
-                if module.BDrop then module.BDrop = 0 end
-            end
+        if isfile and isfile(Config.keyFileName) then
+            key = readfile(Config.keyFileName) or ""
         end
-    end
+    end)
+    return key:gsub("%s+", "")
 end
 
-local function processAllWeapons()
-    local backpack = Player:FindFirstChildOfClass("Backpack")
-    if backpack then
-        for _, item in ipairs(backpack:GetChildren()) do
-            if item:IsA("Tool") then processWeapon(item) end
+-- jnkie API — работает в standalone, НЕ работает в UI-Source
+local function VerifyKey(key)
+    local url = string.format(
+        "https://api.jnkie.com/api/check?key=%s&service=%s&provider=%s&apikey=%s",
+        HttpService:UrlEncode(key),
+        HttpService:UrlEncode(Config.service),
+        HttpService:UrlEncode(Config.provider),
+        HttpService:UrlEncode(Config.api)
+    )
+    local ok, result = pcall(function()
+        return HttpService:GetAsync(url, true)
+    end)
+    if not ok then return false, "Connection error" end
+    local valid, msg = false, "Invalid key"
+    pcall(function()
+        local d = HttpService:JSONDecode(result)
+        if type(d) == "table" then
+            valid = d.valid == true
+            msg   = d.message or d.error or "Invalid key"
         end
-    end
-    local char = Player.Character
-    if char then
-        local tool = char:FindFirstChildOfClass("Tool")
-        if tool then processWeapon(tool) end
-    end
+    end)
+    return valid, msg
 end
 
-local function startNoSpread()
-    local backpack = Player:FindFirstChildOfClass("Backpack")
-    if backpack then
-        local conn = backpack.ChildAdded:Connect(function(child)
-            if child:IsA("Tool") then
-                task.wait(0.3)
-                processWeapon(child)
-            end
-        end)
-        table.insert(noSpreadConnections, conn)
+local function GetGameName()
+    local n = "Unknown"
+    pcall(function() n = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name end)
+    return n
+end
+local function GetExecutor()
+    if syn then return "Synapse" end
+    if getgenv and getgenv()["LPH_".. "NO_CODEJAIL"] then return "ProtoSmasher" end
+    if KRNL_LOADED then return "KRNL" end
+    if Fluxus then return "Fluxus" end
+    if getexecutorname then return getexecutorname() end
+    return "Unknown"
+end
+local function Create(class, props, parent)
+    local i = Instance.new(class)
+    for k,v in pairs(props or {}) do pcall(function() i[k]=v end) end
+    if parent then i.Parent=parent end
+    return i
+end
+local function Tw(props, inst, dur, style)
+    dur=dur or 0.35; style=style or Enum.EasingStyle.Quint
+    local t=TweenService:Create(inst,TweenInfo.new(dur,style,Enum.EasingDirection.Out),props)
+    t:Play(); return t
+end
+local function AddRipple(btn,x,y)
+    local r=Create("Frame",{Size=UDim2.new(0,0,0,0),Position=UDim2.new(0,x,0,y),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(200,200,200),BackgroundTransparency=0.6,BorderSizePixel=0,ZIndex=5},btn)
+    Tw({Size=UDim2.new(0,250,0,250),BackgroundTransparency=1},r,0.5,Enum.EasingStyle.Quart)
+    task.delay(0.5,function() if r.Parent then r:Destroy() end end)
+end
+
+local gameName=GetGameName(); local executorName=GetExecutor()
+
+local ScreenGui=Create("ScreenGui",{Name="TidexAuth",ResetOnSpawn=false,ZIndexBehavior=Enum.ZIndexBehavior.Sibling,IgnoreGuiInset=true},game.CoreGui)
+local Blur=Create("BlurEffect",{Name="AuthBlur",Size=0},game.Lighting)
+local Bg=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0},ScreenGui)
+Create("UIGradient",{Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(0.4,Color3.fromRGB(8,8,8)),ColorSequenceKeypoint.new(0.6,Color3.fromRGB(8,8,8)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))}),Rotation=180},Bg)
+local GrainOverlay=Create("ImageLabel",{Size=UDim2.new(1.1,0,1.1,0),Position=UDim2.new(-0.05,0,-0.05,0),BackgroundTransparency=1,Image="rbxassetid://2148766655",ImageTransparency=0.94,ScaleType=Enum.ScaleType.Tile,TileSize=UDim2.new(0,128,0,128)},Bg)
+local Vignette=Create("ImageLabel",{Size=UDim2.new(1.3,0,1.3,0),Position=UDim2.new(-0.15,0,-0.15,0),BackgroundTransparency=1,Image="rbxassetid://1313450459",ImageTransparency=0.15,ImageColor3=Color3.fromRGB(0,0,0),ScaleType=Enum.ScaleType.Slice,SliceCenter=Rect.new(0,0,0,0)},Bg)
+local ScanLines=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1},Bg)
+for i=0,80 do Create("Frame",{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0,0,0,i*13),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.97,BorderSizePixel=0},ScanLines) end
+local Particles=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1},Bg)
+task.spawn(function()
+    while guiAlive and Particles and Particles.Parent do
+        local p=Create("Frame",{Size=UDim2.new(0,math.random(2,3),0,math.random(2,3)),Position=UDim2.new(math.random()*1.2-0.1,0,math.random()*1.2-0.1,0),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=math.random(40,60)/100,BorderSizePixel=0},Particles)
+        local life=math.random(5,10)
+        Tw({BackgroundTransparency=1},p,life,Enum.EasingStyle.Sine)
+        Tw({Position=UDim2.new(0,p.Position.X.Offset+math.random(-80,80),0,p.Position.Y.Offset+math.random(-60,60))},p,life,Enum.EasingStyle.Sine)
+        task.delay(life,function() if p and p.Parent then p:Destroy() end end)
+        task.wait(math.random(0.2,0.5))
     end
+end)
 
-    local charConn = Player.CharacterAdded:Connect(function(char)
-        task.wait(0.5)
-        processAllWeapons()
-        local childConn = char.ChildAdded:Connect(function(child)
-            if child:IsA("Tool") then
-                task.wait(0.2)
-                processWeapon(child)
+local Card=Create("Frame",{Size=UDim2.new(0,440,0,420),Position=UDim2.new(0.5,0,0.5,0),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(12,12,12),BorderSizePixel=0,ClipsDescendants=true},ScreenGui)
+Create("UIStroke",{Color=Color3.fromRGB(40,40,40),Thickness=1},Card)
+Create("Frame",{Size=UDim2.new(1,0,0,1),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0},Card)
+Create("Frame",{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0,0,1,-1),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0},Card)
+Create("Frame",{Size=UDim2.new(0,1,1,0),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.9,BorderSizePixel=0},Card)
+Create("Frame",{Size=UDim2.new(0,1,1,0),Position=UDim2.new(1,-1,0,0),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.9,BorderSizePixel=0},Card)
+
+local Header=Create("Frame",{Size=UDim2.new(1,0,0,100),BackgroundTransparency=1},Card)
+local LogoContainer=Create("Frame",{Size=UDim2.new(0,64,0,64),Position=UDim2.new(0.5,0,0,10),AnchorPoint=Vector2.new(0.5,0),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0},Header)
+Create("Frame",{Size=UDim2.new(1,-8,1,-8),Position=UDim2.new(0,4,0,4),BackgroundColor3=Color3.fromRGB(12,12,12),BorderSizePixel=0},LogoContainer)
+Create("TextLabel",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text="W",TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=28,TextTransparency=0},LogoContainer)
+local LogoClickBtn=Create("TextButton",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,Text="",ZIndex=3},LogoContainer)
+local LogoHover=Create("Frame",{Size=UDim2.new(1,-4,1,-4),Position=UDim2.new(0,2,0,2),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderSizePixel=0,ZIndex=2},LogoContainer)
+Create("TextLabel",{Size=UDim2.new(1,0,0,16),Position=UDim2.new(0,0,0,80),BackgroundTransparency=1,Text="T I D E X   H U B",TextColor3=Color3.fromRGB(60,60,60),Font=Enum.Font.GothamBold,TextSize=10},Header)
+Create("Frame",{Size=UDim2.new(0.9,0,0,1),Position=UDim2.new(0.05,0,0,103),BackgroundColor3=Color3.fromRGB(25,25,25),BorderSizePixel=0},Card)
+
+local PageContainer=Create("Frame",{Size=UDim2.new(1,0,1,-105),Position=UDim2.new(0,0,0,105),BackgroundTransparency=1,ClipsDescendants=true},Card)
+local KeyPage=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ClipsDescendants=true},PageContainer)
+local Content=Create("Frame",{Size=UDim2.new(1,-40,0,230),Position=UDim2.new(0,20,0,10),BackgroundTransparency=1},KeyPage)
+
+local StatusRow=Create("Frame",{Size=UDim2.new(1,0,0,20),BackgroundTransparency=1},Content)
+local StatusDot=Create("Frame",{Size=UDim2.new(0,6,0,6),Position=UDim2.new(0,0,0.5,-3),BackgroundColor3=Color3.fromRGB(80,80,80),BorderSizePixel=0},StatusRow)
+local StatusLabel=Create("TextLabel",{Size=UDim2.new(1,-14,1,0),Position=UDim2.new(0,14,0,0),BackgroundTransparency=1,Text="Awaiting input",TextColor3=Color3.fromRGB(60,60,60),Font=Enum.Font.Gotham,TextSize=10,TextXAlignment=Enum.TextXAlignment.Left},StatusRow)
+
+local InputWrapper=Create("Frame",{Size=UDim2.new(1,0,0,46),Position=UDim2.new(0,0,0,28),BackgroundColor3=Color3.fromRGB(8,8,8),BorderSizePixel=0},Content)
+local InputStroke=Create("UIStroke",{Color=Color3.fromRGB(30,30,30),Thickness=1},InputWrapper)
+local InputBox=Create("TextBox",{Size=UDim2.new(1,-20,1,0),Position=UDim2.new(0,10,0,0),BackgroundTransparency=1,Text="",PlaceholderText="Enter license key",PlaceholderColor3=Color3.fromRGB(40,40,40),TextColor3=Color3.fromRGB(220,220,220),Font=Enum.Font.Gotham,TextSize=13,TextXAlignment=Enum.TextXAlignment.Left,ClearTextOnFocus=false},InputWrapper)
+
+local VerifyBtn=Create("TextButton",{Size=UDim2.new(1,0,0,44),Position=UDim2.new(0,0,0,84),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0,Text="VERIFY",TextColor3=Color3.fromRGB(0,0,0),Font=Enum.Font.GothamBold,TextSize=12},Content)
+local GetKeyLink=Create("TextButton",{Size=UDim2.new(1,0,0,28),Position=UDim2.new(0,0,0,138),BackgroundTransparency=1,Text="Get key  →  jnkie checkpoint",TextColor3=Color3.fromRGB(45,45,45),Font=Enum.Font.Gotham,TextSize=10},Content)
+local Underline=Create("Frame",{Size=UDim2.new(0,0,0,1),Position=UDim2.new(0,0,1,0),BackgroundColor3=Color3.fromRGB(80,80,80),BorderSizePixel=0},GetKeyLink)
+
+local InfoGrid=Create("Frame",{Size=UDim2.new(1,0,0,40),Position=UDim2.new(0,0,0,175),BackgroundTransparency=1},Content)
+Create("UIGridLayout",{CellSize=UDim2.new(0.5,-4,0,18),CellPadding=UDim2.new(0,8,0,4),SortOrder=Enum.SortOrder.LayoutOrder},InfoGrid)
+local function MakeInfoCell(label,value,order)
+    local cell=Create("Frame",{BackgroundColor3=Color3.fromRGB(8,8,8),BorderSizePixel=0,LayoutOrder=order},InfoGrid)
+    Create("TextLabel",{Size=UDim2.new(0,40,1,0),Position=UDim2.new(0,6,0,0),BackgroundTransparency=1,Text=label,TextColor3=Color3.fromRGB(35,35,35),Font=Enum.Font.Gotham,TextSize=8,TextXAlignment=Enum.TextXAlignment.Left},cell)
+    Create("TextLabel",{Size=UDim2.new(1,-52,1,0),Position=UDim2.new(0,48,0,0),BackgroundTransparency=1,Text=value,TextColor3=Color3.fromRGB(100,100,100),Font=Enum.Font.GothamBold,TextSize=8,TextXAlignment=Enum.TextXAlignment.Right,TextTruncate=Enum.TextTruncate.AtEnd},cell)
+end
+MakeInfoCell("USER",LocalPlayer.Name,0); MakeInfoCell("EXEC",executorName,1)
+MakeInfoCell("HWID","ID_"..tostring(LocalPlayer.UserId),2); MakeInfoCell("GAME",gameName,3)
+
+local OverlayContainer=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundTransparency=1,ZIndex=10,Visible=false},KeyPage)
+local LoadingOvl=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.fromRGB(12,12,12),BackgroundTransparency=1,Visible=false},OverlayContainer)
+local Spinner=Create("Frame",{Size=UDim2.new(0,36,0,36),Position=UDim2.new(0.5,0,0.42,0),AnchorPoint=Vector2.new(0.5,0),BackgroundTransparency=1},LoadingOvl)
+local spinnerDots={}
+for i=1,12 do
+    local dot=Create("Frame",{Size=UDim2.new(0,3,0,3),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.2+(i-1)*0.07,BorderSizePixel=0},Spinner)
+    table.insert(spinnerDots,{dot=dot,angle=(i-1)*30})
+end
+task.spawn(function()
+    while guiAlive do
+        if LoadingOvl.Visible then
+            for _,d in ipairs(spinnerDots) do
+                local a=math.rad(d.angle+tick()*150)
+                d.dot.Position=UDim2.new(0.5+math.cos(a)*0.4,0,0.5+math.sin(a)*0.4,0)
             end
-        end)
-        table.insert(noSpreadConnections, childConn)
-    end)
-    table.insert(noSpreadConnections, charConn)
+        end
+        RunService.Heartbeat:Wait()
+    end
+end)
+Create("TextLabel",{Size=UDim2.new(1,0,0,18),Position=UDim2.new(0,0,0.56,0),BackgroundTransparency=1,Text="Verifying license",TextColor3=Color3.fromRGB(80,80,80),Font=Enum.Font.Gotham,TextSize=10},LoadingOvl)
 
+local SuccessOvl=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.fromRGB(12,12,12),BackgroundTransparency=1,Visible=false},OverlayContainer)
+local CheckSvg=Create("TextLabel",{Size=UDim2.new(0,50,0,50),Position=UDim2.new(0.5,0,0.35,0),AnchorPoint=Vector2.new(0.5,0),BackgroundTransparency=1,Text="+",TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=34,Rotation=45},SuccessOvl)
+Create("TextLabel",{Size=UDim2.new(1,0,0,18),Position=UDim2.new(0,0,0.54,0),BackgroundTransparency=1,Text="LICENSE VERIFIED",TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=14},SuccessOvl)
+local SuccessSub=Create("TextLabel",{Size=UDim2.new(1,0,0,14),Position=UDim2.new(0,0,0.60,0),BackgroundTransparency=1,Text="Initializing",TextColor3=Color3.fromRGB(50,50,50),Font=Enum.Font.Gotham,TextSize=10},SuccessOvl)
+
+local ErrorOvl=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.fromRGB(12,12,12),BackgroundTransparency=1,Visible=false},OverlayContainer)
+Create("TextLabel",{Size=UDim2.new(0,50,0,50),Position=UDim2.new(0.5,0,0.28,0),AnchorPoint=Vector2.new(0.5,0),BackgroundTransparency=1,Text="X",TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=32},ErrorOvl)
+local ErrorTitle=Create("TextLabel",{Size=UDim2.new(1,0,0,18),Position=UDim2.new(0,0,0.48,0),BackgroundTransparency=1,Text="INVALID LICENSE",TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=14},ErrorOvl)
+local ErrorSub=Create("TextLabel",{Size=UDim2.new(1,-20,0,28),Position=UDim2.new(0,10,0.54,0),BackgroundTransparency=1,Text="Check your key and retry",TextColor3=Color3.fromRGB(50,50,50),Font=Enum.Font.Gotham,TextSize=10,TextWrapped=true},ErrorOvl)
+local RetryBtn=Create("TextButton",{Size=UDim2.new(0,90,0,30),Position=UDim2.new(0.5,-45,0.64,0),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0,Text="RETRY",TextColor3=Color3.fromRGB(0,0,0),Font=Enum.Font.GothamBold,TextSize=10},ErrorOvl)
+
+local InfoPage=Create("Frame",{Size=UDim2.new(1,0,1,0),Position=UDim2.new(1,0,0,0),BackgroundTransparency=1,ClipsDescendants=true,Visible=false},PageContainer)
+local InfoBg=Create("Frame",{Size=UDim2.new(1,0,1,0),BackgroundColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0},InfoPage)
+Create("UIStroke",{Color=Color3.fromRGB(25,25,25),Thickness=1},InfoBg)
+local BackBtn=Create("TextButton",{Size=UDim2.new(0,80,0,28),Position=UDim2.new(0,15,0,12),BackgroundColor3=Color3.fromRGB(255,255,255),BorderSizePixel=0,Text="BACK",TextColor3=Color3.fromRGB(0,0,0),Font=Enum.Font.GothamBold,TextSize=9},InfoBg)
+local InfoContent=Create("Frame",{Size=UDim2.new(1,-30,1,-60),Position=UDim2.new(0,15,0,50),BackgroundTransparency=1},InfoBg)
+Create("TextLabel",{Size=UDim2.new(1,0,0,20),BackgroundTransparency=1,Text="A B O U T",TextColor3=Color3.fromRGB(60,60,60),Font=Enum.Font.GothamBold,TextSize=10},InfoContent)
+Create("Frame",{Size=UDim2.new(1,0,0,1),Position=UDim2.new(0,0,0,23),BackgroundColor3=Color3.fromRGB(20,20,20),BorderSizePixel=0},InfoContent)
+Create("TextLabel",{Size=UDim2.new(1,0,0,80),Position=UDim2.new(0,0,0,33),BackgroundTransparency=1,Text="Скрипт разрабатывался только двумя людьми (xavierpihta and synapse1337). Мы очень благодарны вам за то, что вы используете наш скрипт! Надеемся, что он вам понравится.",TextColor3=Color3.fromRGB(60,60,60),Font=Enum.Font.Gotham,TextSize=11,TextXAlignment=Enum.TextXAlignment.Left,TextWrapped=true,LineHeight=1.5},InfoContent)
+Create("TextLabel",{Size=UDim2.new(1,0,0,24),Position=UDim2.new(0,0,0,117),BackgroundTransparency=1,Text="Ощутите ностальгию старого War Tycoon.",TextColor3=Color3.fromRGB(50,50,50),Font=Enum.Font.Gotham,TextSize=11,TextXAlignment=Enum.TextXAlignment.Left,TextWrapped=true,LineHeight=1.5},InfoContent)
+local InfoWarning=Create("Frame",{Size=UDim2.new(1,0,0,50),Position=UDim2.new(0,0,0,151),BackgroundColor3=Color3.fromRGB(5,5,5),BorderSizePixel=0},InfoContent)
+Create("UIStroke",{Color=Color3.fromRGB(25,25,25),Thickness=1},InfoWarning)
+Create("TextLabel",{Size=UDim2.new(1,-16,1,0),Position=UDim2.new(0,8,0,0),BackgroundTransparency=1,Text="Важно! В скрипте есть IP-логгер, который используется для безопасности нашего скрипта.",TextColor3=Color3.fromRGB(50,50,50),Font=Enum.Font.Gotham,TextSize=10,TextXAlignment=Enum.TextXAlignment.Left,TextWrapped=true,LineHeight=1.4},InfoWarning)
+
+local Footer=Create("Frame",{Size=UDim2.new(1,0,0,30),Position=UDim2.new(0,0,1,-30),BackgroundTransparency=1},Card)
+Create("TextLabel",{Size=UDim2.new(0.5,0,1,0),Position=UDim2.new(0,15,0,0),BackgroundTransparency=1,Text="old war tycoon",TextColor3=Color3.fromRGB(30,30,30),Font=Enum.Font.Gotham,TextSize=8,TextXAlignment=Enum.TextXAlignment.Left},Footer)
+Create("TextLabel",{Size=UDim2.new(0.4,0,1,0),Position=UDim2.new(0.6,0,0,0),BackgroundTransparency=1,Text="v1.0.0",TextColor3=Color3.fromRGB(30,30,30),Font=Enum.Font.Gotham,TextSize=8,TextXAlignment=Enum.TextXAlignment.Right},Footer)
+local CloseBtn=Create("TextButton",{Size=UDim2.new(0,20,0,20),Position=UDim2.new(1,-30,0,15),BackgroundTransparency=1,Text="+",TextColor3=Color3.fromRGB(50,50,50),Font=Enum.Font.GothamBold,TextSize=14,Rotation=45,ZIndex=10},Card)
+
+local corners={}
+for _,d in ipairs({{0,8,0,8,16,1},{0,8,0,8,1,16},{1,-24,0,8,16,1},{1,-9,0,8,1,16},{0,8,1,-9,16,1},{0,8,1,-24,1,16},{1,-24,1,-9,16,1},{1,-9,1,-24,1,16}}) do
+    table.insert(corners,Create("Frame",{Size=UDim2.new(0,d[5],0,d[6]),Position=UDim2.new(d[1],d[2],d[3],d[4]),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.7,BorderSizePixel=0,ZIndex=5},Card))
+end
+task.spawn(function()
+    while guiAlive and Card and Card.Parent do
+        local a=math.sin(tick()*2.5)*0.2+0.7
+        for _,c in ipairs(corners) do Tw({BackgroundTransparency=a},c,0.1) end
+        task.wait(0.1)
+    end
+end)
+local ScanBar=Create("Frame",{Size=UDim2.new(1,0,0,1),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=0.92,BorderSizePixel=0,ZIndex=5},Card)
+task.spawn(function()
+    while guiAlive and Card and Card.Parent do
+        Tw({Position=UDim2.new(0,0,0,0)},ScanBar,3,Enum.EasingStyle.Sine) task.wait(3)
+        Tw({Position=UDim2.new(0,0,1,-1)},ScanBar,3,Enum.EasingStyle.Sine) task.wait(3)
+    end
+end)
+
+local isOnInfoPage,isAnimating,ovlBusy=false,false,false
+
+local function SetStatus(text,color)
+    StatusLabel.Text=text
+    if color then Tw({TextColor3=color},StatusLabel,0.25);Tw({BackgroundColor3=color},StatusDot,0.25) end
+end
+local function HideAllOverlays()
+    ovlBusy=true;OverlayContainer.Visible=false
+    for _,o in ipairs({LoadingOvl,SuccessOvl,ErrorOvl}) do o.BackgroundTransparency=1;o.Visible=false end
+    ovlBusy=false
+end
+local function ShowOverlay(name)
+    while ovlBusy do task.wait(0.01) end;ovlBusy=true
+    HideAllOverlays();task.wait(0.05)
+    local ovl=name=="loading" and LoadingOvl or name=="success" and SuccessOvl or ErrorOvl
+    ovl.BackgroundTransparency=1;ovl.Visible=true;OverlayContainer.Visible=true
+    Tw({BackgroundTransparency=0},ovl,0.35);task.wait(0.4);ovlBusy=false
+end
+local function HideOverlay(name)
+    while ovlBusy do task.wait(0.01) end;ovlBusy=true
+    local ovl=name=="loading" and LoadingOvl or name=="success" and SuccessOvl or ErrorOvl
+    Tw({BackgroundTransparency=1},ovl,0.3);task.wait(0.35);ovl.Visible=false;OverlayContainer.Visible=false;ovlBusy=false
+end
+local function CloseGUI()
+    guiAlive=false
+    local t=Tw({Size=UDim2.new(0,440,0,0)},Card,0.4,Enum.EasingStyle.Quint)
+    t.Completed:Connect(function()
+        Card.Visible=false
+        for _,obj in ipairs({ScanLines,GrainOverlay,Vignette,Particles}) do if obj and obj.Parent then obj:Destroy() end end
+        local t2=Tw({BackgroundTransparency=1},Bg,0.35);Tw({Size=UDim2.new(0,0)},Blur,0.35)
+        t2.Completed:Connect(function() ScreenGui:Destroy() end)
+    end)
+end
+local function SwitchToInfo()
+    if isOnInfoPage or isAnimating then return end
+    HideAllOverlays();isAnimating=true;isOnInfoPage=true;Footer.Visible=false
+    Tw({Position=UDim2.new(-1,0,0,0)},KeyPage,0.45,Enum.EasingStyle.Quint);task.wait(0.45)
+    InfoPage.Visible=true;InfoPage.Position=UDim2.new(1,0,0,0)
+    Tw({Position=UDim2.new(0,0,0,0)},InfoPage,0.45,Enum.EasingStyle.Quint);task.wait(0.45)
+    isAnimating=false
+end
+local function SwitchToKey()
+    if not isOnInfoPage or isAnimating then return end
+    HideAllOverlays();isAnimating=true;isOnInfoPage=false
+    Tw({Position=UDim2.new(1,0,0,0)},InfoPage,0.45,Enum.EasingStyle.Quint);task.wait(0.45)
+    InfoPage.Visible=false;KeyPage.Position=UDim2.new(-1,0,0,0);KeyPage.Visible=true
+    Tw({Position=UDim2.new(0,0,0,0)},KeyPage,0.45,Enum.EasingStyle.Quint);task.wait(0.45)
+    Footer.Visible=true;isAnimating=false
+end
+
+-- ============ VERIFY — с реальной проверкой API ============
+local function Verify(key)
+    SetStatus("Verifying...",Color3.fromRGB(120,120,120))
+    ShowOverlay("loading")
     task.spawn(function()
-        while oldGunsActive do
-            task.wait(3)
-            pcall(processAllWeapons)
-        end
-    end)
-
-    task.wait(1)
-    processAllWeapons()
-end
-
-local function stopNoSpread()
-    for _, conn in ipairs(noSpreadConnections) do
-        pcall(function() conn:Disconnect() end)
-    end
-    noSpreadConnections = {}
-end
-
-local function createHealScript()
-    local function keepMoving()
-        local character = Player.Character
-        if not character or not character.Parent then return end
-        local humanoid = character:FindFirstChildOfClass("Humanoid")
-        local hrp = character:FindFirstChild("HumanoidRootPart")
-        if humanoid and hrp then
-            if humanoid.WalkSpeed < MIN_SPEED then
-                humanoid.WalkSpeed = MIN_SPEED
-            end
-            if hrp.Anchored then hrp.Anchored = false end
-            if humanoid.PlatformStand then humanoid.PlatformStand = false end
-        end
-    end
-
-    local function onCharacterAdded(character)
-        task.wait(0.5)
-    end
-
-    local characterConnection = Player.CharacterAdded:Connect(onCharacterAdded)
-    local heartbeatConnection = RunService.Heartbeat:Connect(keepMoving)
-
-    if Player.Character then onCharacterAdded(Player.Character) end
-    return {heartbeatConnection, characterConnection}
-end
-
-local function findAndAccelerateAnimations()
-    local found = false
-    for _, v in pairs(getgc(true)) do
-        if type(v) == "table" then
-            pcall(function()
-                if v.EquipAnim and type(v.EquipAnim) == "function" and v.IdleAnim then
-                    if v.RightAim and v.LeftAim then
-                        local gunName = v.GunName or v.name or v.WeaponName or ""
-                        local isSniper = false
-                        for _, sniperName in pairs(sniperNames) do
-                            if gunName:lower():find(sniperName:lower()) or sniperName:lower():find(gunName:lower()) then
-                                isSniper = true
-                                break
-                            end
-                        end
-                        if isSniper and not v._accelerated then
-                            v._accelerated = true
-                            v.EquipAnim = function(p1, p2, p3)
-                                if p3 and p3[5] and p3[5]:FindFirstChild("Handle") then
-                                    local rightPos, leftPos
-                                    pcall(function()
-                                        local settings = require(script.Parent.Settings)
-                                        rightPos = settings.RightPos
-                                        leftPos = settings.LeftPos
-                                    end)
-                                    if not rightPos then
-                                        rightPos = CFrame.new(-0.65, -0.2, -1) * CFrame.Angles(-1.5707963267948966, 0, 0)
-                                        leftPos = CFrame.new(1.2, 0.1, -1.6) * CFrame.Angles(-2.0943951023931953, 0.6108652381980153, -0.3490658503988659)
-                                    end
-                                    local startRightPos = CFrame.new(-0.875, -0.2, -1.25) * CFrame.Angles(-1.0471975511965976, 0, 0)
-                                    local startLeftPos = CFrame.new(1.2, -0.05, -1.65) * CFrame.Angles(-1.5707963267948966, 0.6108652381980153, -0.4363323129985824)
-                                    TweenService:Create(p3[2], TweenInfo.new(0), {C1 = startRightPos}):Play()
-                                    TweenService:Create(p3[3], TweenInfo.new(0), {C1 = startLeftPos}):Play()
-                                    task.wait(0.1)
-                                    TweenService:Create(p3[2], TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {C1 = rightPos}):Play()
-                                    TweenService:Create(p3[3], TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {C1 = leftPos}):Play()
-                                    task.wait(0.5)
-                                end
-                            end
-                            found = true
-                        end
-                    end
-                end
+        local valid, errMsg = VerifyKey(key)
+        HideOverlay("loading");task.wait(0.25)
+        if valid then
+            SaveKey(key)
+            if getgenv then getgenv().SCRIPT_KEY=key end
+            SetStatus("Verified",Color3.fromRGB(255,255,255))
+            ShowOverlay("success")
+            Tw({Rotation=405},CheckSvg,0.6,Enum.EasingStyle.Back)
+            task.wait(0.8);SuccessSub.Text="Loading module"
+            task.wait(0.5);SuccessSub.Text="Injecting"
+            task.wait(0.4)
+            CloseGUI()
+            task.spawn(function()
+                pcall(function() loadstring(game:HttpGet(Config.scriptUrl))() end)
             end)
-        end
-    end
-    return found
-end
-
-local function accelerateWeapon(weapon)
-    if not weapon or not weapon:IsA("Tool") then return false end
-    local weaponName = weapon.Name
-    if acceleratedWeapons[weaponName] then return false end
-    local isSniper = false
-    for _, sniperName in pairs(sniperNames) do
-        if weaponName:lower():find(sniperName:lower()) or sniperName:lower():find(weaponName:lower()) then
-            isSniper = true
-            break
-        end
-    end
-    if not isSniper then return false end
-
-    pcall(function()
-        weapon.DrawSpeed = 1.1
-        weapon.DeployTime = 1.1
-        weapon.ReadyTime = 1.1
-        weapon.EquipDelay = 0.1
-        weapon.HolsterTime = 0.5
-        weapon:SetAttribute("DrawSpeed", 1.1)
-        weapon:SetAttribute("DeployTime", 1.1)
-        weapon:SetAttribute("ReadyTime", 1.1)
-        weapon:SetAttribute("EquipDelay", 0.1)
-    end)
-    acceleratedWeapons[weaponName] = true
-    return true
-end
-
-local function startOldSnipers()
-    acceleratedWeapons = {}
-
-    task.spawn(function()
-        findAndAccelerateAnimations()
-    end)
-
-    local configs = replicatedStorage:FindFirstChild("Configurations")
-    if configs then
-        local acsGuns = configs:FindFirstChild("ACS_Guns")
-        if acsGuns then
-            for _, gun in pairs(acsGuns:GetChildren()) do
-                local gunName = gun.Name
-                local isSniper = false
-                for _, sniperName in pairs(sniperNames) do
-                    if gunName:lower():find(sniperName:lower()) or sniperName:lower():find(gunName:lower()) then
-                        isSniper = true
-                        break
-                    end
-                end
-                if isSniper and gun:FindFirstChild("Settings") then
-                    local settings = gun.Settings
-                    local function setNumber(name, value)
-                        local prop = settings:FindFirstChild(name)
-                        if prop and prop:IsA("NumberValue") then
-                            prop.Value = value
-                        else
-                            local newProp = Instance.new("NumberValue")
-                            newProp.Name = name
-                            newProp.Value = value
-                            newProp.Parent = settings
-                        end
-                    end
-                    setNumber("DrawSpeed", 1.1)
-                    setNumber("DeployTime", 1.1)
-                    setNumber("ReadyTime", 1.1)
-                    setNumber("EquipDelay", 0.1)
-                end
-            end
-        end
-    end
-
-    local backpack = Player:WaitForChild("Backpack")
-    backpack.ChildAdded:Connect(function(weapon)
-        if oldGunsActive then
-            task.wait(0.1)
-            accelerateWeapon(weapon)
-        end
-    end)
-
-    local character = Player.Character or Player.CharacterAdded:Wait()
-    local function onWeaponEquipped(weapon)
-        if oldGunsActive then
-            task.wait(0.1)
-            accelerateWeapon(weapon)
-        end
-    end
-
-    local acsClient = character:FindFirstChild("ACS_Client")
-    if acsClient then
-        acsClient.ChildAdded:Connect(function(child)
-            if child.Name == "Weapon" then onWeaponEquipped(child) end
-        end)
-    end
-
-    if character then
-        local tool = character:FindFirstChildOfClass("Tool")
-        if tool then accelerateWeapon(tool) end
-    end
-end
-
-local function stopOldSnipers()
-    acceleratedWeapons = {}
-end
-
-local oldMidsModel = nil
-
-local function startOldMids()
-    if oldMidsModel then return end
-
-    local url = "https://github.com/ausdgaskdasoudas/adas/raw/refs/heads/main/2023.rbxm"
-    local httpworked, rawdata = pcall(function()
-        return game:HttpGet(url)
-    end)
-
-    if not httpworked or not rawdata or #rawdata == 0 then
-        return
-    end
-
-    local service = game:GetService("SerializationService")
-    local deserializeworked, modelparts = pcall(function()
-        local buf = buffer.fromstring(rawdata)
-        local instances = service:DeserializeInstancesAsync(buf)
-        return instances
-    end)
-
-    if deserializeworked and modelparts then
-        oldMidsModel = Instance.new("Model", workspace)
-        oldMidsModel.Name = "2023_Mid"
-
-        for _, inst in ipairs(modelparts) do
-            if inst and typeof(inst) == "Instance" then
-                inst.Parent = oldMidsModel
-            end
-        end
-    else
-        oldMidsModel = nil
-    end
-end
-
-local function stopOldMids()
-    if oldMidsModel then
-        oldMidsModel:Destroy()
-        oldMidsModel = nil
-    end
-end
-
-local autoLoadoutActive = false
-local firstSpawn = true
-local spawnPos = nil
-
-local function getPlayerTycoon()
-    local tycoons = workspace:FindFirstChild("Tycoon")
-    if not tycoons then return nil end
-    local tycoonsFolder = tycoons:FindFirstChild("Tycoons")
-    if not tycoonsFolder then return nil end
-    for _, tycoon in ipairs(tycoonsFolder:GetChildren()) do
-        if tycoon.Name == Player.Name then return tycoon end
-    end
-    for _, tycoon in ipairs(tycoonsFolder:GetChildren()) do
-        local owner = tycoon:FindFirstChild("Owner")
-        if owner and owner.Value == Player then return tycoon end
-    end
-    return tycoonsFolder:GetChildren()[1]
-end
-
-local function getLoadoutObject()
-    local playerTycoon = getPlayerTycoon()
-    if not playerTycoon then return nil end
-    local purchasedObjects = playerTycoon:FindFirstChild("PurchasedObjects")
-    if not purchasedObjects then return nil end
-    return purchasedObjects:FindFirstChild("Loadout")
-end
-
-local EquipLoadout = nil
-pcall(function()
-    local knit = replicatedStorage:FindFirstChild("Packages")
-    if knit then knit = knit:FindFirstChild("Knit") end
-    if knit then
-        local services = knit:FindFirstChild("Services")
-        if services then
-            local loadoutService = services:FindFirstChild("LoadoutService")
-            if loadoutService then
-                local rf = loadoutService:FindFirstChild("RF")
-                if rf then
-                    EquipLoadout = rf:FindFirstChild("EquipLoadout")
-                end
-            end
-        end
-    end
-end)
-
-local function autoTeleportToLoadout()
-    if not autoLoadoutActive then return end
-    local char = Player.Character
-    if not char then return end
-    local hrp = char:FindFirstChild("HumanoidRootPart")
-    if not hrp then return end
-    if not spawnPos then spawnPos = hrp.CFrame end
-
-    local loadout = getLoadoutObject()
-    if loadout and EquipLoadout then
-        hrp.CFrame = loadout:GetPivot() + Vector3.new(0, 3, 0)
-        task.wait(0.15)
-        for i = 1, 3 do
-            pcall(function() EquipLoadout:InvokeServer(i) end)
-            task.wait(0.1)
-        end
-        task.wait(0.15)
-        hrp.CFrame = spawnPos
-    end
-end
-
-local function setupAutoLoadout()
-    autoLoadoutActive = true
-    Player.CharacterAdded:Connect(function(char)
-        if not autoLoadoutActive then return end
-        if not firstSpawn then
-            task.wait(0.3)
-            local humanoid = char:FindFirstChild("Humanoid")
-            if humanoid then
-                while humanoid.Health <= 0 do task.wait(0.05) end
-            end
-            autoTeleportToLoadout()
         else
-            firstSpawn = false
-            local hrp = char:FindFirstChild("HumanoidRootPart")
-            if hrp then spawnPos = hrp.CFrame end
+            SetStatus("Invalid key",Color3.fromRGB(255,80,80))
+            ErrorTitle.Text="INVALID LICENSE"
+            ErrorSub.Text=tostring(errMsg):sub(1,100)
+            ShowOverlay("error")
         end
     end)
 end
 
-local deathTeleportActive = false
-local lastDeathPosition = nil
+LogoClickBtn.MouseButton1Click:Connect(SwitchToInfo)
+LogoClickBtn.MouseEnter:Connect(function() Tw({BackgroundTransparency=0.85},LogoHover,0.2);Tw({BackgroundColor3=Color3.fromRGB(200,200,200)},LogoContainer,0.2) end)
+LogoClickBtn.MouseLeave:Connect(function() Tw({BackgroundTransparency=1},LogoHover,0.2);Tw({BackgroundColor3=Color3.fromRGB(255,255,255)},LogoContainer,0.2) end)
+BackBtn.MouseButton1Click:Connect(SwitchToKey)
+BackBtn.MouseButton1Down:Connect(function(x,y) AddRipple(BackBtn,x-BackBtn.AbsolutePosition.X,y-BackBtn.AbsolutePosition.Y) end)
+BackBtn.MouseEnter:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(220,220,220)},BackBtn,0.15) end)
+BackBtn.MouseLeave:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(255,255,255)},BackBtn,0.15) end)
+InputBox:GetPropertyChangedSignal("Text"):Connect(function() Tw({Color=InputBox.Text~="" and Color3.fromRGB(60,60,60) or Color3.fromRGB(30,30,30)},InputStroke,0.2) end)
+InputBox.Focused:Connect(function() Tw({Color=Color3.fromRGB(80,80,80)},InputStroke,0.25);Tw({BackgroundColor3=Color3.fromRGB(6,6,6)},InputWrapper,0.25) end)
+InputBox.FocusLost:Connect(function() Tw({Color=Color3.fromRGB(30,30,30)},InputStroke,0.25);Tw({BackgroundColor3=Color3.fromRGB(8,8,8)},InputWrapper,0.25) end)
+VerifyBtn.MouseButton1Click:Connect(function()
+    local key=InputBox.Text:gsub("%s+","")
+    if key=="" then
+        SetStatus("Empty field",Color3.fromRGB(255,255,255))
+        Tw({Position=UDim2.new(0,-5,0,28)},InputWrapper,0.06) task.wait(0.06)
+        Tw({Position=UDim2.new(0,5,0,28)},InputWrapper,0.06) task.wait(0.06)
+        Tw({Position=UDim2.new(0,0,0,28)},InputWrapper,0.15);return
+    end
+    Verify(key)
+end)
+InputBox.FocusLost:Connect(function(enter) if enter then VerifyBtn.MouseButton1Click:Fire() end end)
+VerifyBtn.MouseButton1Down:Connect(function(x,y) AddRipple(VerifyBtn,x-VerifyBtn.AbsolutePosition.X,y-VerifyBtn.AbsolutePosition.Y) end)
+VerifyBtn.MouseEnter:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(220,220,220)},VerifyBtn,0.15) end)
+VerifyBtn.MouseLeave:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(255,255,255)},VerifyBtn,0.15) end)
+RetryBtn.MouseButton1Click:Connect(function() HideOverlay("error");task.wait(0.25);InputBox.Text="";SetStatus("Awaiting input",Color3.fromRGB(80,80,80)) end)
+RetryBtn.MouseButton1Down:Connect(function(x,y) AddRipple(RetryBtn,x-RetryBtn.AbsolutePosition.X,y-RetryBtn.AbsolutePosition.Y) end)
+RetryBtn.MouseEnter:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(220,220,220)},RetryBtn,0.15) end)
+RetryBtn.MouseLeave:Connect(function() Tw({BackgroundColor3=Color3.fromRGB(255,255,255)},RetryBtn,0.15) end)
+GetKeyLink.MouseEnter:Connect(function() Tw({TextColor3=Color3.fromRGB(100,100,100)},GetKeyLink,0.15);Tw({Size=UDim2.new(1,0,0,1)},Underline,0.2) end)
+GetKeyLink.MouseLeave:Connect(function() Tw({TextColor3=Color3.fromRGB(45,45,45)},GetKeyLink,0.15);Tw({Size=UDim2.new(0,0,0,1)},Underline,0.2) end)
+GetKeyLink.MouseButton1Click:Connect(function()
+    SetStatus("Opening checkpoint...",Color3.fromRGB(255,255,255))
+    pcall(function() setclipboard(Config.keyLink) end)
+    pcall(function() os.execute('start "" "'..Config.keyLink..'"') end)
+    task.wait(1);SetStatus("Link copied to clipboard",Color3.fromRGB(80,80,80))
+    task.wait(2);SetStatus("Awaiting input",Color3.fromRGB(80,80,80))
+end)
+CloseBtn.MouseEnter:Connect(function() Tw({TextColor3=Color3.fromRGB(255,255,255)},CloseBtn,0.12) end)
+CloseBtn.MouseLeave:Connect(function() Tw({TextColor3=Color3.fromRGB(50,50,50)},CloseBtn,0.12) end)
+CloseBtn.MouseButton1Click:Connect(CloseGUI)
 
-local function setupDeathTeleport()
-    local character = Player.Character or Player.CharacterAdded:Wait()
-    local humanoid = character:WaitForChild("Humanoid")
-
-    humanoid.Died:Connect(function()
-        if not deathTeleportActive then return end
-        if character and character:FindFirstChild("HumanoidRootPart") then
-            lastDeathPosition = character.HumanoidRootPart.Position
+local function MakeDrag(frame,handle)
+    local drag,dragIn,dragStart,startPos=false,nil,nil,nil
+    handle.InputBegan:Connect(function(i)
+        if i.UserInputType==Enum.UserInputType.MouseButton1 or i.UserInputType==Enum.UserInputType.Touch then
+            drag=true;dragStart=i.Position;startPos=frame.Position
+            i.Changed:Connect(function() if i.UserInputState==Enum.UserInputState.End then drag=false end end)
         end
     end)
-
-    Player.CharacterAdded:Connect(function(newChar)
-        if not deathTeleportActive then return end
-        character = newChar
-        humanoid = newChar:WaitForChild("Humanoid")
-
-        if lastDeathPosition then
-            task.wait(5)
-            if deathTeleportActive and newChar and newChar:FindFirstChild("HumanoidRootPart") then
-                newChar.HumanoidRootPart.CFrame = CFrame.new(lastDeathPosition)
-            end
-        end
-
-        humanoid.Died:Connect(function()
-            if not deathTeleportActive then return end
-            if newChar and newChar:FindFirstChild("HumanoidRootPart") then
-                lastDeathPosition = newChar.HumanoidRootPart.Position
-            end
-        end)
+    handle.InputChanged:Connect(function(i) if i.UserInputType==Enum.UserInputType.MouseMovement or i.UserInputType==Enum.UserInputType.Touch then dragIn=i end end)
+    UserInputService.InputChanged:Connect(function(i)
+        if i==dragIn and drag then local d=i.Position-dragStart;frame.Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+d.X,startPos.Y.Scale,startPos.Y.Offset+d.Y) end
     end)
 end
-
-local CombatSection1 = CombatSubButton:Section("Weapons", "Left")
-
-CombatSection1:Toggle({
-    Title = "oldGUNS",
-    Description = "олд шотки",
-    Default = false
-    }, function(value)
-    oldGunsActive = value
-    if value then
-        startNoSpread()
-        task.spawn(startOldSnipers)
-    else
-        stopNoSpread()
-        stopOldSnipers()
-    end
-end)
-
-local CombatSection2 = CombatSubButton:Section("oldbugs", "Right")
-
-CombatSection2:Toggle({
-    Title = "Heal Fix",
-    Description = "олд баг на хилку",
-    Default = false
-    }, function(value)
-    if value then
-        if healScriptConnections then
-            if healScriptConnections[1] then healScriptConnections[1]:Disconnect() end
-            if healScriptConnections[2] then healScriptConnections[2]:Disconnect() end
-        end
-        healScriptConnections = createHealScript()
-    else
-        if healScriptConnections then
-            if healScriptConnections[1] then healScriptConnections[1]:Disconnect() end
-            if healScriptConnections[2] then healScriptConnections[2]:Disconnect() end
-            healScriptConnections = nil
-        end
-        local character = Player.Character
-        if character then
-            local humanoid = character:FindFirstChildOfClass("Humanoid")
-            if humanoid then humanoid.WalkSpeed = 16 end
-        end
-    end
-end)
-
-local CombatSection3 = CombatSubButton:Section("Old Mids", "Right")
-
--- Твой старый переключатель мидов 23 года
-CombatSection3:Toggle({
-    Title = "2023 Mid (Oldest)",
-    Description = "Легендарный мид",
-    Default = false
-    }, function(value)
-    if value then
-        task.spawn(startOldMids)
-    else
-        stopOldMids()
-    end
-end)
-
--- ============================================
--- 2025 MIDS (Загрузка в игру БЕЗ изменения перса)
--- ============================================
-
-local mid2025Url = "https://github.com/ausdgaskdasoudas/adas/raw/refs/heads/main/2025.rbxm"
-local mid2025DarkUrl = "https://github.com/ausdgaskdasoudas/adas/raw/refs/heads/main/2025b.rbxm"
-
-local currentMid2025 = nil
-
-local function loadMidModel(url, modelName)
-    local httpworked, rawdata = pcall(function()
-        return game:HttpGet(url)
-    end)
-
-    if not httpworked or not rawdata or #rawdata == 0 then
-        Window:Notification({Title = "oldWT", Desc = "Failed to download " .. modelName, expire = 3})
-        return nil
-    end
-
-    local service = game:GetService("SerializationService")
-    local deserializeworked, modelparts = pcall(function()
-        local buf = buffer.fromstring(rawdata)
-        return service:DeserializeInstancesAsync(buf)
-    end)
-
-    if deserializeworked and modelparts then
-        local loadedmodel = Instance.new("Model", workspace)
-        loadedmodel.Name = modelName
-
-        for _, inst in ipairs(modelparts) do
-            if inst and typeof(inst) == "Instance" then
-                inst.Parent = loadedmodel
-            end
-        end
-        
-        -- Если модель является Tool (оружие), кладем в инвентарь
-        if loadedmodel:IsA("Tool") then
-            loadedmodel.Parent = Player.Backpack
-        end
-        
-        return loadedmodel
-    else
-        Window:Notification({Title = "oldWT", Desc = "Deserialization failed", expire = 3})
-        return nil
-    end
-end
-
--- Переключатель 2025 Mid
-CombatSection3:Toggle({
-    Title = "2025 Mid",
-    Description = "Спавн модели в игру",
-    Default = false
-}, function(value)
-    if value then
-        if currentMid2025 then 
-            currentMid2025:Destroy() 
-            currentMid2025 = nil 
-        end
-        Window:Notification({Title = "oldWT", Desc = "Loading 2025 Mid...", expire = 2})
-        task.spawn(function()
-            local model = loadMidModel(mid2025Url, "2025_Mid")
-            if model then
-                currentMid2025 = model
-            end
-        end)
-    else
-        -- При выключении просто удаляем модель из игры
-        if currentMid2025 then 
-            currentMid2025:Destroy() 
-            currentMid2025 = nil 
-        end
-    end
-end)
-
--- Переключатель 2025 Mid (Dark)
-CombatSection3:Toggle({
-    Title = "2025 Mid (Dark)",
-    Description = "Спавн модели в игру",
-    Default = false
-}, function(value)
-    if value then
-        if currentMid2025 then 
-            currentMid2025:Destroy() 
-            currentMid2025 = nil 
-        end
-        Window:Notification({Title = "oldWT", Desc = "Loading 2025 Mid (Dark)...", expire = 2})
-        task.spawn(function()
-            local model = loadMidModel(mid2025DarkUrl, "2025_Mid_Dark")
-            if model then
-                currentMid2025 = model
-            end
-        end)
-    else
-        -- При выключении просто удаляем модель из игры
-        if currentMid2025 then 
-            currentMid2025:Destroy() 
-            currentMid2025 = nil 
-        end
-    end
-end)
-
-local FeaturesSubButton = FeaturesCat:Button("Features Functions", "http://www.roblox.com/asset/?id=12707252279")
-
-local FeaturesSection1 = FeaturesSubButton:Section("Player", "Left")
-
-FeaturesSection1:Toggle({
-    Title = "Auto Loadout",
-    Description = "Автоматически забирает лодаут после респавна",
-    Default = false
-    }, function(value)
-    autoLoadoutActive = value
-    if value then
-        firstSpawn = true
-        spawnPos = nil
-        setupAutoLoadout()
-    else
-        firstSpawn = true
-        spawnPos = nil
-    end
-end)
-
-FeaturesSection1:Toggle({
-    Title = "Teleport to Death Spot",
-    Description = "Телепортирует к месту смерти после респавна",
-    Default = false
-    }, function(value)
-    deathTeleportActive = value
-    if value then
-        setupDeathTeleport()
-    else
-        lastDeathPosition = nil
-    end
-end)
-
-local FeaturesSection2 = FeaturesSubButton:Section("UI", "Right")
-
-local hideGUIConnection = nil
-local uiHidden = false
-
-FeaturesSection2:Toggle({
-    Title = "Hide GUI (U)",
-    Description = "Скрывает игровой HUD по клавише U",
-    Default = false
-    }, function(value)
-    if value then
-        if hideGUIConnection then hideGUIConnection:Disconnect() end
-        hideGUIConnection = UserInputService.InputBegan:Connect(function(input, gameProcessed)
-            if gameProcessed then return end
-            if input.KeyCode == Enum.KeyCode.U then
-                uiHidden = not uiHidden
-                
-                local playerGui = Player:FindFirstChild("PlayerGui")
-                if not playerGui then return end
-                
-                local ui = playerGui:FindFirstChild("UI")
-                if not ui then return end
-                
-                local container = ui:FindFirstChild("Container")
-                if not container then return end
-                
-                local hud = container:FindFirstChild("HUD")
-                if not hud then return end
-                
-                local map = hud:FindFirstChild("Map")
-                local menu = hud:FindFirstChild("Menu")
-                
-                if map then map.Visible = not uiHidden end
-                if menu then menu.Visible = not uiHidden end
-            end
-        end)
-    else
-        if hideGUIConnection then
-            hideGUIConnection:Disconnect()
-            hideGUIConnection = nil
-        end
-        uiHidden = false
-    end
-end)
-
-local FeaturesSection3 = FeaturesSubButton:Section("Morph", "Right")
-
-local visualMorphConnection = nil
-local activeVisualMorph = nil
-local hiddenParts = {}
-local hiddenDecals = {}
-local lastMorphDesc = nil
-
-local function clearVisualMorph()
-    if visualMorphConnection then
-        visualMorphConnection:Disconnect()
-        visualMorphConnection = nil
-    end
-
-    if activeVisualMorph then
-        activeVisualMorph:Destroy()
-        activeVisualMorph = nil
-    end
-
-    for part, oldValues in pairs(hiddenParts) do
-        if part and part.Parent then
-            part.Transparency = oldValues.Transparency
-            part.LocalTransparencyModifier = oldValues.LocalTransparencyModifier
-        end
-    end
-    table.clear(hiddenParts)
-
-    for decal, oldValue in pairs(hiddenDecals) do
-        if decal and decal.Parent then
-            decal.Transparency = oldValue
-        end
-    end
-    table.clear(hiddenDecals)
-end
-
-local function motorKey(motor)
-    local part0 = motor.Part0 and motor.Part0.Name or ""
-    local part1 = motor.Part1 and motor.Part1.Name or ""
-    return motor.Name.."|"..part0.."|"..part1
-end
-
-local function findBodyAttachment(character, accessory, handle)
-    for _, handleItem in ipairs(handle:GetDescendants()) do
-        if handleItem:IsA("Attachment") then
-            for _, bodyItem in ipairs(character:GetDescendants()) do
-                if bodyItem:IsA("Attachment") and bodyItem.Name == handleItem.Name
-                and not bodyItem:IsDescendantOf(accessory) and bodyItem.Parent:IsA("BasePart") then
-                    return bodyItem, handleItem
-                end
-            end
-        end
-    end
-    return nil, nil
-end
-
-local function attachAccessoryLocal(character, humanoid, accessory)
-    local handle = accessory:FindFirstChild("Handle")
-    if not handle or not handle:IsA("BasePart") then
-        accessory:Destroy()
-        return false
-    end
-
-    for _, obj in ipairs(accessory:GetDescendants()) do
-        if obj:IsA("BasePart") then
-            obj.CanCollide = false
-            obj.CanTouch = false
-            obj.CanQuery = false
-            obj.Massless = true
-        end
-    end
-
-    local oldWeld = handle:FindFirstChild("AccessoryWeld")
-    if oldWeld then
-        oldWeld:Destroy()
-    end
-    accessory.Parent = nil
-
-    local added = pcall(function()
-        humanoid:AddAccessory(accessory)
-    end)
-    if added and accessory.Parent == character and handle:FindFirstChild("AccessoryWeld") then
-        return true
-    end
-
-    accessory.Parent = character
-    local bodyAttachment, handleAttachment = findBodyAttachment(character, accessory, handle)
-    local bodyPart = bodyAttachment and bodyAttachment.Parent or character:FindFirstChild("Head")
-    if not bodyPart or not bodyPart:IsA("BasePart") then
-        accessory:Destroy()
-        return false
-    end
-
-    local weld = Instance.new("Weld")
-    weld.Name = "AccessoryWeld"
-    weld.Part0 = bodyPart
-    weld.Part1 = handle
-    weld.C0 = bodyAttachment and bodyAttachment.CFrame or CFrame.new()
-    weld.C1 = handleAttachment and handleAttachment.CFrame or CFrame.new()
-    weld.Parent = handle
-    return true
-end
-
-local function transferAppearanceToCharacter(character, humanoid, sourceModel)
-    for _, child in ipairs(character:GetChildren()) do
-        if child:IsA("Accessory") or child:IsA("Clothing")
-        or child:IsA("BodyColors") or child:IsA("CharacterMesh") then
-            child:Destroy()
-        end
-    end
-
-    local targetHead = sourceModel:FindFirstChild("Head")
-    local realHead = character:FindFirstChild("Head")
-    if realHead then
-        for _, child in ipairs(realHead:GetChildren()) do
-            if child:IsA("Decal") then
-                child:Destroy()
-            end
-        end
-        if targetHead then
-            for _, child in ipairs(targetHead:GetChildren()) do
-                if child:IsA("Decal") then
-                    child:Clone().Parent = realHead
-                end
-            end
-        end
-    end
-
-    local appearanceItems = {}
-    for _, child in ipairs(sourceModel:GetChildren()) do
-        if child:IsA("Accessory") or child:IsA("Clothing")
-        or child:IsA("BodyColors") or child:IsA("CharacterMesh") then
-            table.insert(appearanceItems, child)
-        end
-    end
-
-    local transferred = 0
-    for _, item in ipairs(appearanceItems) do
-        if item:IsA("Accessory") then
-            if attachAccessoryLocal(character, humanoid, item) then
-                transferred = transferred + 1
-            end
-        else
-            item.Parent = character
-            transferred = transferred + 1
-        end
-    end
-
-    return transferred > 0
-end
-
-local function createLocalVisualMorph(character, humanoid, desc)
-    clearVisualMorph()
-
-    local ok, visualOrError = pcall(function()
-        return Players:CreateHumanoidModelFromDescriptionAsync(
-            desc,
-            humanoid.RigType,
-            Enum.AssetTypeVerification.Default
-        )
-    end)
-    if not ok or not visualOrError then
-        return false, visualOrError
-    end
-
-    local visual = visualOrError
-    visual.Name = "LocalAvatarMorph_"..Player.UserId
-
-    local transferred = transferAppearanceToCharacter(character, humanoid, visual)
-    visual:Destroy()
-    if transferred then
-        return true
-    end
-    return false, "avatar contains no transferable appearance items"
-end
-
-local function applyDescriptionLocal(humanoid, desc)
-    local character = humanoid.Parent
-    if character then
-        local visualOk, visualErr = createLocalVisualMorph(character, humanoid, desc)
-        if visualOk then
-            return true
-        end
-    end
-
-    local ok, err = pcall(function()
-        humanoid:ApplyDescriptionResetAsync(desc, Enum.AssetTypeVerification.Default)
-    end)
-    if not ok then
-        ok, err = pcall(function()
-            humanoid:ApplyDescription(desc, Enum.AssetTypeVerification.Default)
-        end)
-    end
-
-    return ok, err
-end
-
-local function morphHumanoidDescription(desc)
-    local char = Player.Character or Player.CharacterAdded:Wait()
-    local humanoid = char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid", 6)
-    if humanoid then
-        local ok, err = applyDescriptionLocal(humanoid, desc)
-        if ok then
-            lastMorphDesc = desc:Clone()
-            return true
-        end
-    end
-
-    return false
-end
-
-Player.CharacterAdded:Connect(function()
-    if lastMorphDesc then
-        task.spawn(function()
-            task.wait(0.5)
-            local char = Player.Character
-            if char then
-                local humanoid = char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid", 6)
-                if humanoid then
-                    applyDescriptionLocal(humanoid, lastMorphDesc)
-                end
-            end
-        end)
-    end
-end)
-
-local function morphByUsername(username)
-    task.spawn(function()
-        local ok, userId = pcall(function()
-            return Players:GetUserIdFromNameAsync(username)
-        end)
-        if not ok or not userId then
-            Window:Notification({Title = "Morph", Desc = "Пользователь не найден!", expire = 3})
-            return
-        end
-
-        local descOk, desc = pcall(function()
-            return Players:GetHumanoidDescriptionFromUserIdAsync(userId)
-        end)
-
-        if descOk and desc then
-            if morphHumanoidDescription(desc) then
-                Window:Notification({Title = "Morph", Desc = "Скин успешно применен!", expire = 3})
-            else
-                Window:Notification({Title = "Morph", Desc = "Ошибка при морфе!", expire = 3})
-            end
-        else
-            Window:Notification({Title = "Morph", Desc = "Ошибка загрузки скина!", expire = 3})
-        end
-    end)
-end
-
-local displayNameSpoofConn = nil
-local usernameSpoofConn = nil
-
-local function startDisplayNameSpoof(newName)
-    if displayNameSpoofConn then displayNameSpoofConn:Disconnect() end
-    local Plr = Players.LocalPlayer
-    local realDisplay = Plr.DisplayName
-    local function replaceText(value)
-        if value.ClassName ~= "TextLabel" then return end
-        local function replace()
-            local str = value.Text:gsub(realDisplay, newName)
-            if str ~= value.Text then value.Text = str end
-        end
-        if string.find(value.Text, realDisplay) then replace() end
-        value:GetPropertyChangedSignal("Text"):Connect(replace)
-    end
-    for _, value in next, game:GetDescendants() do replaceText(value) end
-    displayNameSpoofConn = game.DescendantAdded:Connect(replaceText)
-end
-
-local function stopDisplayNameSpoof()
-    if displayNameSpoofConn then displayNameSpoofConn:Disconnect() displayNameSpoofConn = nil end
-end
-
-local function startUsernameSpoof(newName)
-    if usernameSpoofConn then usernameSpoofConn:Disconnect() end
-    local Plr = Players.LocalPlayer
-    local realName = Plr.Name
-    local function replaceText(value)
-        if value.ClassName ~= "TextLabel" then return end
-        local function replace()
-            local str = value.Text:gsub(realName, newName)
-            if str ~= value.Text then value.Text = str end
-        end
-        if string.find(value.Text, realName) then replace() end
-        value:GetPropertyChangedSignal("Text"):Connect(replace)
-    end
-    for _, value in next, game:GetDescendants() do replaceText(value) end
-    usernameSpoofConn = game.DescendantAdded:Connect(replaceText)
-end
-
-local function stopUsernameSpoof()
-    if usernameSpoofConn then usernameSpoofConn:Disconnect() usernameSpoofConn = nil end
-end
-
-FeaturesSection3:Textbox({
-    Title = "Spoof Display Name",
-    Description = "Введите новый дисплейнейм",
-    Default = "",
-}, function(value)
-    if value ~= "" then
-        startDisplayNameSpoof(value)
-        Window:Notification({Title = "Name Spoof", Desc = "Display Name: " .. value, expire = 3})
-    else
-        stopDisplayNameSpoof()
-    end
-end)
-
-FeaturesSection3:Textbox({
-    Title = "Spoof Username",
-    Description = "Введите новый юзернейм",
-    Default = "",
-}, function(value)
-    if value ~= "" then
-        startUsernameSpoof(value)
-        Window:Notification({Title = "Name Spoof", Desc = "Username: " .. value, expire = 3})
-    else
-        stopUsernameSpoof()
-    end
-end)
-FeaturesSection3:Textbox({
-    Title = "Morph Avatar",
-    Description = "Введите ник и нажмите Enter",
-    Default = "",
-}, function(value)
-    if value ~= "" then
-        morphByUsername(value)
-    end
-end)
-
-local ORSection7 = ORSubButton:Section("Config", "Right")
-ORSection7:Toggle({
-    Title = "Auto Save",
-    Description = "Automatyically Save Settings",
-    Default = autosaveconfig or false
-    }, function(value)
-    autosaveconfig = (value)
-end)
-
-local function formatValue(val)
-    if typeof(val) == "Color3" then
-        return string.format("Color3.new(%f, %f, %f)", val.R, val.G, val.B)
-    elseif type(val) == "string" then
-        return string.format("%q", val)
-    elseif type(val) == "boolean" or type(val) == "number" then
-        return tostring(val)
-    else
-        return "nil"
-    end
-end
-
-local function getSaveString()
-    local saveTable = {
-        "customguicolor", "customshadowcolor", "customguidpi", "customshadowtransparency",
-        "textsize", "norollcoooldown", "autocollect", "autosellall", "chinahatstatus",
-        "chinahatmeshtransparency", "chinahatoutlinetransparencya", "chinahatfillingtransparencya",
-        "chinahatmeshcolor", "chinahatoutlinecolora", "chinahatfillingcolora", "customtime",
-        "hours", "minutes", "changetimestatus", "customfogcolor", "customfogend", "customfogstart",
-        "changefogstatus", "walkspeedmultiplier", "walkspeedplayer", "jumpheightmultiplier",
-        "jumpheightplayer", "watermarkenabled", "optimizationdelay", "cursorenabled", "cursoranimation",
-        "cursoranimationspeed", "cursortransparency", "cursorrotation", "cursorcolor",
-        "backgroundgradientanimation", "backgroundgradientanimationspeed", "customwatermarkcolor",
-        "customwatermarkshadowcolor", "customwatermarkshadowtransparency", "backgroundgradientenabled",
-        "backgroundgradienttransparency", "backgroundgradientrotation", "backgroundgradientcolor1",
-        "backgroundgradientcolor2", "screengirlenabled", "screengirlside", "screengirl", "blurenabled", "blursize"
-    }
-
-    local str = ""
-    for _, varName in ipairs(saveTable) do
-        local value = rawget(_G, varName)
-        if value == nil then 
-            value = getfenv(0)[varName] 
-        end
-        if value ~= nil then
-            str = str .. varName .. " = " .. formatValue(value) .. "\n"
-        end
-    end
-    return str
-end
-
-ORSection7:Button({
-    Title = "Saving",
-    ButtonName = "Save",
-    Description = "Manual Save Settings",
-    }, function()
-        if not isfolder or not makefolder or not writefile then
-            Window:Notification({
-                Title = "oldWT",
-                Desc = "Your executor doesnt support config system!",
-                expire = 3
-            })
-            return
-        end
-
-        makefolder("RenHub")
-        makefolder("RenHub/configs")
-
-        local saveStr = getSaveString()
-        writefile("RenHub/configs/" .. game.PlaceId .. ".RenHub", saveStr)
-
-        Window:Notification({
-            Title = "oldWT",
-            Desc = "Config for this place was succesfully saved!",
-            expire = 3
-        }) 
-    end)
-
-ORSection7:Button({
-    Title = "Deleting",
-    ButtonName = "Delete",
-    Description = "Manual Delete Settings",
-    }, function()
-    if isfolder and delfile and isfolder("RenHub/configs") and isfile("RenHub/configs/" .. game.PlaceId .. ".RenHub") then
-        delfile("RenHub/configs/" .. game.PlaceId .. ".RenHub")
-        Window:Notification({
-            Title = "oldWT",
-            Desc = "Config for this place was succesfully deleted!",
-            expire = 3
-        })   
-    else
-        Window:Notification({
-            Title = "oldWT",
-            Desc = "There's no config for this place!",
-            expire = 3
-        }) 
-    end
-end)
-
-local ORSection8 = ORSubButton:Section("Loaders", "Right")
-ORSection8:Button({
-    Title = "Infinite Yield",
-    ButtonName = "Load",
-    Description = "",
-    }, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source", true))()
-end)
-
-print(" ██▀███  ▓█████▓██   ██▓ ███▄    █ ")
-print("▓██ ▒ ██▒▓█   ▀ ▒██  ██▒ ██ ▀█   █ ")
-print("▓██ ░▄█ ▒▒███    ▒██ ██░▓██  ▀█ ██▒")
-print("▒██▀▀█▄  ▒▓█  ▄  ░ ▐██▓░▓██▒  ▐▌██▒")
-print("░██▓ ▒██▒░▒████▒ ░ ██▒▓░▒██░   ▓██░")
-print("░ ▒▓ ░▒▓░░░ ▒░ ░  ██▒▒▒ ░ ▒░   ▒ ▒ ")
-print("  ░▒ ░ ▒░ ░ ░  ░▓██ ░▒░ ░ ░░   ░ ▒░")
-print("  ░░   ░    ░   ▒ ▒ ░░     ░   ░ ░ ")
-print("   ░        ░  ░░ ░              ░ ")
-
-local canvasfix = 0
-for _,Dropdown in pairs(game.CoreGui.RenHubGUI.Window.MainUI.Content:GetDescendants()) do
-    if Dropdown.Name == "Dropdown" and Dropdown.ClassName == "Frame" then
-        count = 0
-        for _,child in ipairs(Dropdown.OptionHolder.ContentHolder.Content:GetChildren()) do
-            if child:IsA("ImageButton") then
-                count = count + 1
-            end
-        end
-        Dropdown.OptionHolder.ContentHolder.Content.CanvasSize = UDim2.new(1, 0, 1+(count*0.01515), 0)
-    end
-end
-
-local FPSOfDevice = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.SectionTitle:Clone()
-FPSOfDevice.Parent = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content
-FPSOfDevice.Name = "FPSOfDevice"
-FPSOfDevice.Text = "FPS: 0"
-
-local PingOfDevice = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.SectionTitle:Clone()
-PingOfDevice.Parent = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content
-PingOfDevice.Name = "PingOfDevice"
-PingOfDevice.Text = "Ping: 0"
-
-local TimeOfDevice = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.SectionTitle:Clone()
-TimeOfDevice.Parent = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content
-TimeOfDevice.Name = "TimeOfDevice"
-TimeOfDevice.Text = "Current Time: 0:00"
-
-local VisualsInfoText = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.SectionTitle:Clone()
-VisualsInfoText.Parent = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content
-VisualsInfoText.Name = "VisualsInfoText"
-VisualsInfoText.Text = "если хочете можем завезти пиздатые визуалы"
-VisualsInfoText.TextWrapped = true
-VisualsInfoText.Size = UDim2.new(1, 0, 0, 20)
-VisualsInfoText.TextXAlignment = Enum.TextXAlignment.Left
-
-task.spawn(function()
-    while task.wait(1) do
-        pcall(function()
-            local RunService = game:GetService("RunService")
-            FPSOfDevice.Text = "FPS: " .. math.floor(1 / RunService.RenderStepped:Wait())
-            PingOfDevice.Text = "Ping: " .. math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
-            TimeOfDevice.Text = "Current Time: " .. os.date("%H:%M:%S")
-        end)
-    end
-end)
-for line in string.gmatch(UpdateInfo, "[^\r\n]+") do
-    local TextUpdateLog = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Right["Last Update Changelog:"].Border.SectionTitle:Clone()
-    TextUpdateLog.Parent = game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Right["Last Update Changelog:"].Border.Content
-    TextUpdateLog.Text = line
-end
-
-game.CoreGui.RenHubGUI.Window.MainUI.Size = UDim2.new(0, 8.51*customguidpi, 0, 4.88*customguidpi)
-RenHubWatermarkWindow.Size = UDim2.new(0, 4.56*customguidpi, 0, 0.27*customguidpi)
-for _,element in pairs(game.CoreGui.RenHubGUI.Window:GetDescendants()) do
-    if element.ClassName == "TextLabel" or element.ClassName == "TextBox" then
-        if not element:FindFirstChild("OriginalTextSize") then
-            local OriginalTextSize = Instance.new("StringValue")
-            OriginalTextSize.Name = "OriginalTextSize"
-            OriginalTextSize.Value = element.TextSize
-            OriginalTextSize.Parent = element
-            element.TextSize = element.OriginalTextSize.Value/100*customguidpi
-        else
-            element.TextSize = element.OriginalTextSize.Value/100*customguidpi
-        end
-    end
-    if element.ClassName == "Frame" and element.Name == "CheatBase" and element.Parent.Name == "Content" then
-        element.Size = UDim2.new(1,0,0,0.30*customguidpi)
-    end
-end
-for _,element in pairs(RenHubWatermarkWindow:GetDescendants()) do
-    if element.ClassName == "TextLabel" then
-        if element.Name ~= "1Logo" then
-            element.TextSize = math.floor(0.175*customguidpi)
-        else
-            element.TextSize = math.floor(0.25*customguidpi)
-        end
-    end
-    if element.Name == "DropShadow" and element.ClassName == "ImageLabel" then
-        element.Size = UDim2.new(1,0.22*customguidpi,1,0.22*customguidpi)
-    end
-end
-
-if fails ~= 0 then
-    for _,cfgsys in pairs(game.CoreGui.RenHubGUI.Window.MainUI.Content:GetDescendants()) do
-        if cfgsys.Name == "Config" and cfgsys:IsA("Frame") then
-            cfgsys:Remove()
-            warn("RenHub | WARNING! Executor doesn't support config system!")
-        end
-    end
-end
-
-for _, child in ipairs(ContentHolder:GetChildren()) do
-    if child:IsA("TextLabel") then
-        child:GetPropertyChangedSignal("Text"):Connect(function()
-            local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-            child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-        end)
-        child:GetPropertyChangedSignal("TextSize"):Connect(function()
-            local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-            child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-        end)
-        local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-        child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-    end
-end
-ContentHolder.ChildAdded:Connect(function(child)
-    if child:IsA("TextLabel") then
-        child:GetPropertyChangedSignal("Text"):Connect(function()
-            local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-            child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-        end)
-        child:GetPropertyChangedSignal("TextSize"):Connect(function()
-            local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-            child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-        end)
-        local textSize = game:GetService("TextService"):GetTextSize(child.Text, child.TextSize, child.Font, Vector2.new(10000, 10000))
-        child.Size = UDim2.new(0, textSize.X + 10, child.Size.Y.Scale, child.Size.Y.Offset)
-    end
-end)
-
-local isHolding = false
-
-RenHubWatermarkWindow.MouseEnter:Connect(function()
-    if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
-        isHolding = true
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 0.95}
-        ):Play()
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines.XLine,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 0}
-        ):Play()
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines.YLine,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 0}
-        ):Play()
-    end
-end)
-
-RenHubWatermarkWindow.MouseLeave:Connect(function()
-    if isHolding then
-        isHolding = false
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 1}
-        ):Play()
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines.XLine,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 1}
-        ):Play()
-        game:GetService("TweenService"):Create(
-            RenHubWatermarkCrossLines.CrossLines.YLine,
-            TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-            {Transparency = 1}
-        ):Play()
-    end
-end)
-
-game:GetService("UserInputService").InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        if RenHubWatermark and RenHubWatermark:FindFirstChild("RenHubWatermarkWindow") then
-            local mouse = game.Players.LocalPlayer:GetMouse()
-            local window = RenHubWatermark.RenHubWatermarkWindow
-            local mousePosition = Vector2.new(mouse.X, mouse.Y)
-            local windowPosition = window.AbsolutePosition
-            local windowSize = window.AbsoluteSize
-
-            if mousePosition.X >= windowPosition.X and mousePosition.X <= windowPosition.X + windowSize.X and
-                mousePosition.Y >= windowPosition.Y and mousePosition.Y <= windowPosition.Y + windowSize.Y then
-                isHolding = true
-                game:GetService("TweenService"):Create(
-                    RenHubWatermarkCrossLines.CrossLines,
-                    TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                    {Transparency = 0.9}
-                ):Play()
-                game:GetService("TweenService"):Create(
-                    RenHubWatermarkCrossLines.CrossLines.XLine,
-                    TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                    {Transparency = 0}
-                ):Play()
-                game:GetService("TweenService"):Create(
-                    RenHubWatermarkCrossLines.CrossLines.YLine,
-                    TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                    {Transparency = 0}
-                ):Play()
-            end
-        end
-    end
-end)
-
-game:GetService("UserInputService").InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        if isHolding then
-            isHolding = false
-            game:GetService("TweenService"):Create(
-                RenHubWatermarkCrossLines.CrossLines,
-                TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                {Transparency = 1}
-            ):Play()
-            game:GetService("TweenService"):Create(
-                RenHubWatermarkCrossLines.CrossLines.XLine,
-                TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                {Transparency = 1}
-            ):Play()
-            game:GetService("TweenService"):Create(
-                RenHubWatermarkCrossLines.CrossLines.YLine,
-                TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-                {Transparency = 1}
-            ):Play()
-        end
-    end
-end)
-
-game.CoreGui.RenHubGUI.DisplayOrder = 1
-
-local lastWidth = RenHubWatermark.RenHubWatermarkWindow.AbsoluteSize.X
-local lastUpdate = 0
-local connection
-local fpsCounter, fpsTime, currentFPS = 0, 0, 60
-connection = game:GetService("RunService").Heartbeat:Connect(function(deltaTime)
-    if CursorImage then
-        CursorImage.Position = UDim2.new(0,game:GetService("UserInputService"):GetMouseLocation().X-14,0,game:GetService("UserInputService"):GetMouseLocation().Y-73)
-    end
-
-    fpsCounter += 1
-    fpsTime += deltaTime
-    if fpsTime >= 1 then
-        currentFPS = fpsCounter
-        fpsCounter, fpsTime = 0, 0
-    end
-
-    if walkspeedmultiplier == true then
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkspeedplayer
-    end
-    if jumpheightmultiplier == true then
-        game.Players.LocalPlayer.Character.Humanoid.JumpHeight = jumpheightplayer
-    end
-    lastUpdate = lastUpdate + deltaTime
-    if lastUpdate >= optimizationdelay then
-        lastUpdate = 0
-        if game.CoreGui:FindFirstChild("RenHubGUI") then
-            game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content.PingOfDevice.Text = "Ping: " .. math.floor(tonumber(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()))
-            game.CoreGui.RenHubGUI.Window.MainUI.Content.Information.Left["Information:"].Border.Content.TimeOfDevice.Text = "Current Time: " .. os.date("%X")
-            game.CoreGui.RenHubGUI.Window.MainUI.DropShadowHolder.DropShadow.ImageTransparency = 1-customshadowtransparency
-            game.CoreGui.RenHubGUI.Window.MainUI.DropShadowHolder.DropShadow.ImageColor3 = customshadowcolor
-            DropShadow.ImageTransparency = 1-customwatermarkshadowtransparency
-            DropShadow.ImageColor3 = customwatermarkshadowcolor
-            for _,element in pairs(game.CoreGui.RenHubGUI:GetDescendants()) do
-                if element.Name == "Logo" and element.ClassName == "ImageLabel" then
-                    element.ImageColor3 = customguicolor
-                end
-                if element.Name == "Image" and element.ClassName == "ImageLabel" then
-                    element.ImageColor3 = customguicolor
-                end
-            end
-            for _,wmelement in pairs(ContentHolder:GetDescendants()) do
-                if wmelement.ClassName == "TextLabel" then
-                    wmelement.TextColor3 = customwatermarkcolor
-                end
-                if wmelement.ClassName == "Frame" then
-                    wmelement.BackgroundColor3 = customwatermarkcolor
-                end
-            end
-        else
-            defaultvalue(); connection:Disconnect()
-        end
-        if RenHubWatermark then
-            local totalWidth = 0
-            for _, child in ipairs(RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:GetChildren()) do
-                if child:IsA("GuiObject") and child ~= game.CoreGui.RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("UIListLayout") then
-                    totalWidth = totalWidth + child.Size.X.Offset + game.CoreGui.RenHubWatermark.RenHubWatermarkWindow.MainUI.ContentHolder:FindFirstChild("UIListLayout").Padding.Offset
-                end
-            end
-
-            local newWidth = totalWidth + 5
-            RenHubWatermark.RenHubWatermarkWindow.Size = UDim2.new(0, newWidth, RenHubWatermark.RenHubWatermarkWindow.Size.Y.Scale, RenHubWatermark.RenHubWatermarkWindow.Size.Y.Offset)
-
-            local widthDifference = newWidth - lastWidth
-
-            local windowCenterX = RenHubWatermark.RenHubWatermarkWindow.AbsolutePosition.X + RenHubWatermark.RenHubWatermarkWindow.AbsoluteSize.X / 2
-            local screenCenterX = workspace.CurrentCamera.ViewportSize.X / 2
-
-            if math.abs(windowCenterX - screenCenterX) <= 10 then
-                RenHubWatermark.RenHubWatermarkWindow.Position = UDim2.new(
-                    0.5, -newWidth / 2,
-                    RenHubWatermark.RenHubWatermarkWindow.Position.Y.Scale,
-                    RenHubWatermark.RenHubWatermarkWindow.Position.Y.Offset
-                )
-            else
-                if windowCenterX > screenCenterX then
-                    RenHubWatermark.RenHubWatermarkWindow.Position = UDim2.new(
-                        RenHubWatermark.RenHubWatermarkWindow.Position.X.Scale,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.X.Offset - widthDifference,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.Y.Scale,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.Y.Offset
-                    )
-                else
-                    RenHubWatermark.RenHubWatermarkWindow.Position = UDim2.new(
-                        RenHubWatermark.RenHubWatermarkWindow.Position.X.Scale,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.X.Offset,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.Y.Scale,
-                        RenHubWatermark.RenHubWatermarkWindow.Position.Y.Offset
-                    )
-                end
-            end
-            lastWidth = newWidth
-            _7TextPing.Text = "Ping: " .. math.floor(tonumber(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()))
-            _9TextTime.Text = os.date("%X")
-            _5TextFPS.Text = "FPS: " .. currentFPS
-        end
-    end
-end)
-
-task.spawn(function()
-    while task.wait(1) do
-        pcall(function()
-            for _, v in pairs(game.CoreGui.RenHubGUI:GetDescendants()) do
-                if v:IsA("TextLabel") and v.Name == "Desc" and v.Parent.Name == "Text" and v.Parent.Parent.Name == "Text" then
-                    if v.TextScaled then
-                        v.TextScaled = false
-                        v.AutomaticSize = Enum.AutomaticSize.Y
-                        v.TextWrapped = true
-                        local constraint = v:FindFirstChildOfClass("UITextSizeConstraint")
-                        if constraint then
-                            constraint:Destroy()
-                        end
-                        local parent = v.Parent.Parent.Parent
-                        if parent and parent:IsA("Frame") then
-                            parent.AutomaticSize = Enum.AutomaticSize.Y
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end)
+MakeDrag(Card,Header)
+
+local savedKey=LoadKey()
+if savedKey~="" then InputBox.Text=savedKey;SetStatus("Key loaded from file",Color3.fromRGB(60,60,60)) end
+
+Card.Size=UDim2.new(0,440,0,0);Card.Position=UDim2.new(0.5,0,0.5,20)
+task.wait(0.1)
+Tw({Size=UDim2.new(0,440,0,420)},Card,0.7,Enum.EasingStyle.Back)
+Tw({Position=UDim2.new(0.5,0,0.5,0)},Card,0.7,Enum.EasingStyle.Back)
+Tw({Size=UDim2.new(0,24)},Blur,0.9)
