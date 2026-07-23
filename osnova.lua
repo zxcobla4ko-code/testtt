@@ -1,6 +1,3 @@
--- TIDEX HUB KEY SYSTEM
--- STANDALONE | Host on GitHub | jnkie API verify
-
 local HttpService      = game:GetService("HttpService")
 local TweenService     = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -14,7 +11,7 @@ local Config = {
     provider    = "oldwt",
     keyLink     = "https://jnkie.com/flow/b3ec74ca-3d15-4c75-8e33-6dbcca778acd",
     keyFileName = "TidexHubKey.txt",
-    scriptUrl   = "loadstring(game:HttpGet("https://raw.githubusercontent.com/zxcobla4ko-code/test/refs/heads/main/test"))()",
+    scriptUrl   = "loadstring(game:HttpGet("https://raw.githubusercontent.com/zxcobla4ko-code/osnova/refs/heads/main/osnova.lua"))()",
 }
 
 local guiAlive = true
